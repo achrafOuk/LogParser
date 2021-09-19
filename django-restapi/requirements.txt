@@ -1,0 +1,13 @@
+#installing postgre 
+psycopg2==2.8.6
+#markdonw
+Markdown==3.3.4
+#django
+Django==3.2.4
+#django filter
+django-filter==2.4.0
+#django rest framework
+djangorestframework==3.12.4
+PyYAML==5.4.1
+uritemplate==3.0.1
+coreapi==2.3.3
