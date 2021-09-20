@@ -15,5 +15,4 @@ urlpatterns = [
     path('users/new/',AddNewUser.as_view()),
     path('users/edit/<int:id>/',UserUpdate.as_view()),
     path('users/delete/<int:id>/',UserDelete.as_view()),
-
 ]

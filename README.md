@@ -8,17 +8,17 @@ git clone
 Python >= 3.7
 ## install Backend dependenices
 ```
-git clone https://github.com/achrafOuk/dataIntegration
-cd django-restap
+git clone https://github.com/achrafOuk/LogParser
+cd django-restapi
 pip install -r requirements.txt
-
 ```
-
 ## create database
 You can change the db settings in restapi/settings.py
 ### To create the database automaticlly do:
+```
 python manage.py makemigration
 python manage.py migrate
+```
 ## running the server
 python manage.py runserver
 

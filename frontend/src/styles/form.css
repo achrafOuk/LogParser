@@ -1,0 +1,13 @@
+input{
+    border-radius: 10rem !important;
+    padding: 1.5rem 1rem !important;
+    margin-bottom: 4%;
+    box-shadow: none;
+}
+button{
+    border-radius: 10rem !important;
+    padding: .75rem 1rem;
+}
+.card.o-hidden.border-0.shadow-lg.my-5 {
+    padding: 3%;
+}

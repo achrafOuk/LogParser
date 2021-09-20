@@ -2,6 +2,8 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import Error404 from './pages/404/404';
+import Index from './pages/landingpag';
+import Login from './pages/login/login';
 import Register from './pages/register/register';
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
       <header className="App-header">
         <Router>
           <Switch>
+            <Route exact path='/' component={Index}></Route>
             <Route path='/register'component={Register}></Route>
+            <Route path='/login'component={Login}></Route>
             <Route path='*' component={Error404} ></Route>
           </Switch>
         </Router>
