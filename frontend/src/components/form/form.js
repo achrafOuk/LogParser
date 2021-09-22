@@ -31,7 +31,7 @@ export default class Form extends Component{
                                 {
                                 this.props.inputs.map( 
                                     input => <InputGroup 
-                                    onWrite={this.props.onWrite } inputs={input}/> )}
+                                    key={this.props.input} onWrite={this.props.onEdit } inputs={input}/> )}
                                 <Button 
                                 text="submit" 
                                 class="btn btn-primary btn-user btn-block" 
