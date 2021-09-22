@@ -9,9 +9,9 @@ class RegisterController {
         let pwd = (inputs[2].value);
         let repwd = (inputs[3].value);
         let  data = new RegisterModel(name,email,pwd,repwd);
-    console.log('form:'+data.getEmail());
+        console.log(data.validateData());
+        return data.validateData()
     }
-        //return data.validateData();*/
     }
     
 }

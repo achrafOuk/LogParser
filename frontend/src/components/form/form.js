@@ -2,8 +2,8 @@ import { Component } from "react";
 import Button from "../../components/form/button";
 import InputGroup from "../../components/form/inputGroup";
 import Link from "../../components/form/link";
+import Messages from "../../components/form/messages";
 import "../../styles/form.css";
-import Messages from "./messages";
 export default class Form extends Component{
     constructor(){
             super();
@@ -28,10 +28,11 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form className="user">
+                                <Messages messages={this.state.error} type="danger" />
                                 {
                                 this.props.inputs.map( 
                                     input => <InputGroup 
-                                    key={this.props.input} onWrite={this.props.onEdit } inputs={input}/> )}
+                                    key={this.props.input} onWrite={ ()=> this.updateState(this.props.onEdit() ) } inputs={input}/> )}
                                 <Button 
                                 text="submit" 
                                 class="btn btn-primary btn-user btn-block" 

@@ -1,13 +1,16 @@
 import { Component } from "react";
 import Form from "../../components/form/form";
 import RegisterController from "../../controllers/registerController";
-import RegisterModel from "../../models/registerModel";
 import "../../styles/form.css";
 
 export default class Register extends Component{
     constructor(){
         super();
         this.state={
+            name:'',
+            email:'',
+            pdw:'',
+            repwd:'',
         }
     }
     render(){
@@ -39,7 +42,7 @@ export default class Register extends Component{
     let inputs = [username,email,passwords]
         return(
         <>
-            <Form key='1' pageName='Regsiter' onEdit={ () => new RegisterController().collectData() } 
+            <Form key='1' pageName='Regsiter' onEdit={  new RegisterController().collectData } 
             inputs={inputs} submit="If have an account, signin!" href='/login'/>
         </>
         );
