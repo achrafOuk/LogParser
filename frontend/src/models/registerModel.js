@@ -21,9 +21,16 @@ class RegisterModel {
     {
         return this.repwd;
     }
-    
+    getData(){
+        return {
+            'name':this.username,
+            'email':this.email,
+            'pwd':this.pwd,
+            'repwd':this.repwd,
+        }
+    }
     validateEmail(email){
-        const pattern = /^[a-z]+[(_|.)a-z]*@[a-z]+.[a-z]+$/;
+        const pattern = /^[a-z0-9]+[(_|.)a-z0-9]*@[a-z]+.[a-z]+$/;
         let result = new RegExp(pattern).test(email);
         return result;
     }
@@ -32,6 +39,10 @@ class RegisterModel {
     }
     validateData(){
         let error=[]
+        if(this.name==="" || this.email==="" || this.pwd==="" || this.repwd==="" )
+        {
+            error =[...error,'Fields must not be empty!'];
+        }
         if(! this.validateEmail(this.email) ){
             error =[...error,'The email is not valide'];
         }

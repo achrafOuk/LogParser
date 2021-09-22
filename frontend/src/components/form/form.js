@@ -8,7 +8,8 @@ export default class Form extends Component{
     constructor(){
             super();
             this.state={
-                error:[]
+                error:[],
+                success:[],
             }
         }
     updateState(value){
@@ -27,12 +28,17 @@ export default class Form extends Component{
                         <div className="p-5">
                             <div className="text-center">
                             </div>
-                            <form className="user">
+                            <form 
+                            onSubmit={ (e)=>this.props.onSubmit(e) } 
+                            className="user">
                                 <Messages messages={this.state.error} type="danger" />
+                                <Messages messages={this.state.success} type="success" />
                                 {
                                 this.props.inputs.map( 
-                                    input => <InputGroup 
-                                    key={this.props.input} onWrite={ ()=> this.updateState(this.props.onEdit() ) } inputs={input}/> )}
+                                input => <InputGroup 
+                                key={this.props.input} 
+                                onWrite={ ()=> this.updateState(this.props.onEdit() ) } 
+                                inputs={input}/> )}
                                 <Button 
                                 text="submit" 
                                 class="btn btn-primary btn-user btn-block" 

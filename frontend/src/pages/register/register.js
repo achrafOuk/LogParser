@@ -40,9 +40,12 @@ export default class Register extends Component{
         }
     ];
     let inputs = [username,email,passwords]
+    let registerControler =   new RegisterController();
         return(
         <>
-            <Form key='1' pageName='Regsiter' onEdit={  new RegisterController().collectData } 
+            <Form key='1' pageName='Regsiter' 
+            onSubmit={ (e) => registerControler.sendData(e) } 
+            onEdit={  registerControler.collectData } 
             inputs={inputs} submit="If have an account, signin!" href='/login'/>
         </>
         );
