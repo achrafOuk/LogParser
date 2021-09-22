@@ -9,20 +9,25 @@ Python >= 3.7
 ## install Backend dependenices
 ```
 git clone https://github.com/achrafOuk/LogParser
-cd django-restapi
+cd LogParser/django-restapi
 pip install -r requirements.txt
 ```
 ## create database
 You can change the db settings in restapi/settings.py
 ### To create the database automaticlly do:
 ```
+cd LogParser/django-restapi
 python manage.py makemigration
 python manage.py migrate
 ```
 ## running the server
+```
+cd LogParser/django-restapi
 python manage.py runserver
+```
 
 # Front end
 ## running the server
+cd LogParser/frontend
 npm start
 

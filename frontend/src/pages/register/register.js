@@ -1,10 +1,10 @@
 import { Component } from "react";
-import Button from "../../components/form/button";
-import InputGroup from "../../components/form/inputGroup";
-import LINK from "../../components/form/link";
 import Form from "../../components/form/form";
+import RegisterController from "../../controllers/registerController";
 import "../../styles/form.css";
+
 export default class Register extends Component{
+    
     render(){
         let username=[{
             "id":1,
@@ -30,12 +30,12 @@ export default class Register extends Component{
             "id":"Repeatedpassword",
             "type":"password"
         }
-
     ];
     let inputs = [username,email,passwords]
         return(
         <>
-            <Form pageName='Regsiter' inputs={inputs} submit="If have an account, signin!" href='/login'/>
+            <Form pageName='Regsiter' onWrite={   new RegisterController().collectData()  } 
+            inputs={inputs} submit="If have an account, signin!" href='/login'/>
         </>
         );
     }

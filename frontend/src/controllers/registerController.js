@@ -1,14 +1,18 @@
+import RegisterModel from "../models/registerModel";
 class RegisterController {
-    validateEmail(email){
-        let result = new RegExp("^[\w+][.\w+]*@[\w+][.\w+]+$").text(email);
-        return result;
+    collectData(){
+    let inputs = document.querySelectorAll('input');
+    console.log(inputs);
+    /*let inputs = document.querySelectorAll('input');
+        let name = (inputs[0].value);
+        let  email= (inputs[1].value);
+        let pwd = (inputs[2].value);
+        let repwd = (inputs[3].value);
+        let  data = new RegisterModel(name,email,pwd,repwd);
+        console.log(inputs);*/
+        //return data.validateData();*/
+        return 'work';
     }
-    validatePassword(pwd,repwd){
-        return pwd===repwd ? true :false;
-    }
-    sendData(username,email,pwd,repwd){
-        if(this.validateEmail(email) && this.validatePassword(pwd,repwd)){
-        }
-    }
+    
 }
 export default RegisterController ;

@@ -3,7 +3,19 @@ import Button from "../../components/form/button";
 import InputGroup from "../../components/form/inputGroup";
 import Link from "../../components/form/link";
 import "../../styles/form.css";
+import Messages from "./messages";
 export default class Form extends Component{
+    constructor(){
+            super();
+            this.state={
+                error:[]
+            }
+        }
+    updateState(value){
+            this.setState(currentState =>{
+                return {error:value};
+            });
+        }
     render(){
         return(
         <div className="container">
@@ -16,7 +28,10 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form className="user">
-                                {this.props.inputs.map( input => <InputGroup inputs={input}/> )}
+                                {
+                                this.props.inputs.map( 
+                                    input => <InputGroup 
+                                    onWrite={this.props.onWrite } inputs={input}/> )}
                                 <Button 
                                 text="submit" 
                                 class="btn btn-primary btn-user btn-block" 
@@ -29,7 +44,6 @@ export default class Form extends Component{
                 </div>
             </div>
         </div>
-
     </div>
         );
     }
