@@ -51,15 +51,16 @@ class RegisterModel {
             error =[...error,'The passwords does not match'];
         }
         let response = {
-            "msg":error,
+            "content":error,
             "type":'danger'
         }
         console.log(response);
-        return error;
+        return response;
     }
     sendData(){
-        if(this.validateData().length===0){
+        if(this.validateData().content.length===0){
             let _data = this.getData();
+            console.log('data send');
             let senddata = async () =>{
                 let req = await fetch('http://127.0.0.1:8000/api/signup/',{
                     method: "POST",
@@ -68,20 +69,24 @@ class RegisterModel {
                 })
                 .then(response => { return response.json() }).catch(err => { return (err)} ) ;
                 try{
+                    console.log('req1'+req);
                     req.content=req.content.replace(/{'/,"").replace(/'}/,"");
                     req.type='danger';
-                    value.content =[value.content]
+                    req.content =[req.content]
                     console.log(Object.values(req));
                     return Object.values(req);
                 }
                 catch(error){
                     req.content=[req.info];
                     req.type='success';
+                    console.log('req0'+req);
                     console.log(Object.values(req));
                     return Object.values(req);
                 }
             }
-            senddata();
+            console.log('data1');
+            return senddata();
+
         }
     }
 }

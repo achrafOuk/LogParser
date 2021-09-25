@@ -43,7 +43,8 @@ class RegisterController {
             let pwd = (inputs[2].value);
             let repwd = (inputs[3].value);
             let  data = new RegisterModel(name,email,pwd,repwd);
-            data.sendData();
+            console.log('data:'+data.sendData());
+            return data.sendData();
         }
     }
     
