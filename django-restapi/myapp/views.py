@@ -29,7 +29,6 @@ class RegisterNewUser(APIView):
     renderer_classes = [JSONRenderer]
     def post(self,request):
         #serialized data
-        
         userData = CustomUserSerializer(data=request.data)
         print(request.data)
         #check if username and email does not exists

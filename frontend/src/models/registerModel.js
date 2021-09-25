@@ -4,6 +4,7 @@ class RegisterModel {
         this.email = email;
         this.pwd = pwd;
         this.repwd = repwd;
+        this.title = "register page";
     }
     getUsername()
     {
@@ -23,10 +24,9 @@ class RegisterModel {
     }
     getData(){
         return {
-            'name':this.username,
+            'username':this.username,
             'email':this.email,
-            'pwd':this.pwd,
-            'repwd':this.repwd,
+            'password':this.pwd,
         }
     }
     validateEmail(email){
@@ -50,7 +50,39 @@ class RegisterModel {
         {
             error =[...error,'The passwords does not match'];
         }
+        let response = {
+            "msg":error,
+            "type":'danger'
+        }
+        console.log(response);
         return error;
+    }
+    sendData(){
+        if(this.validateData().length===0){
+            let _data = this.getData();
+            let senddata = async () =>{
+                let req = await fetch('http://127.0.0.1:8000/api/signup/',{
+                    method: "POST",
+                    body: JSON.stringify(_data),
+                    headers: {"Content-type": "application/json; charset=UTF-8"}
+                })
+                .then(response => { return response.json() }).catch(err => { return (err)} ) ;
+                try{
+                    req.content=req.content.replace(/{'/,"").replace(/'}/,"");
+                    req.type='danger';
+                    value.content =[value.content]
+                    console.log(Object.values(req));
+                    return Object.values(req);
+                }
+                catch(error){
+                    req.content=[req.info];
+                    req.type='success';
+                    console.log(Object.values(req));
+                    return Object.values(req);
+                }
+            }
+            senddata();
+        }
     }
 }
 export default RegisterModel;

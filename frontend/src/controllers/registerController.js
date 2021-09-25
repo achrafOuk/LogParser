@@ -25,7 +25,6 @@ class RegisterController {
     }
     collectData(){
         let inputs = document.querySelectorAll('input');
-        const that = this;
         if (inputs.length===4){
             let name = (inputs[0].value);
             let  email= (inputs[1].value);
@@ -44,8 +43,7 @@ class RegisterController {
             let pwd = (inputs[2].value);
             let repwd = (inputs[3].value);
             let  data = new RegisterModel(name,email,pwd,repwd);
-            console.log('Data is passed');
-            return ''
+            data.sendData();
         }
     }
     

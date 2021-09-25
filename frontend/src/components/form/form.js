@@ -10,13 +10,25 @@ export default class Form extends Component{
             this.state={
                 error:[],
                 success:[],
+                msg:[],
             }
         }
-    updateState(value){
-            this.setState(currentState =>{
+    updateError(value){
+            this.setState( () =>{
                 return {error:value};
             });
         }
+    updateSuccess(value){
+            this.setState(() =>{
+                return {success:value};
+            });
+        }
+    updateMsg(value){
+            this.setState(() =>{
+                return {msg:value};
+            });
+        }
+
     render(){
         return(
         <div className="container">
@@ -29,15 +41,14 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form 
-                            onSubmit={ (e)=>this.props.onSubmit(e) } 
+                            onSubmit={ (e)=> this.updateSuccess(this.props.onSubmit(e) ) } 
                             className="user">
                                 <Messages messages={this.state.error} type="danger" />
-                                <Messages messages={this.state.success} type="success" />
                                 {
                                 this.props.inputs.map( 
                                 input => <InputGroup 
                                 key={this.props.input} 
-                                onWrite={ ()=> this.updateState(this.props.onEdit() ) } 
+                                onWrite={ ()=> this.updateError(this.props.onEdit() ) } 
                                 inputs={input}/> )}
                                 <Button 
                                 text="submit" 
