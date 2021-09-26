@@ -34,10 +34,9 @@ export default class Form extends Component{
                                 <Messages messages={this.state.msg} type="danger" />
                                 {
                                 this.props.inputs.map( 
-                                input => <InputGroup 
-                                key={this.props.input} 
-                                onWrite={ ()=> this.updateMsg(this.props.onEdit() ) } 
-                                inputs={input}/> )}
+                                input => <InputGroup key={this.props.input} 
+                                onWrite={ ()=> this.updateMsg( this.props.onEdit() ) } 
+                                inputs={input} />)}
                                 <Button 
                                 text="submit" 
                                 class="btn btn-primary btn-user btn-block" 

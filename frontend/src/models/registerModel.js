@@ -53,14 +53,14 @@ class RegisterModel {
         let response = {
             "content":error,
             "type":'danger'
-        }
-        console.log(response);
+        };
         return response;
     }
     sendData(){
         if(this.validateData().content.length===0){
             let _data = this.getData();
             console.log('data send');
+            let response;
             let senddata = async () =>{
                 let req = await fetch('http://127.0.0.1:8000/api/signup/',{
                     method: "POST",
@@ -69,24 +69,32 @@ class RegisterModel {
                 })
                 .then(response => { return response.json() }).catch(err => { return (err)} ) ;
                 try{
-                    console.log('req1'+req);
                     req.content=req.content.replace(/{'/,"").replace(/'}/,"");
                     req.type='danger';
                     req.content =[req.content]
-                    console.log(Object.values(req));
-                    return Object.values(req);
+                    response = {
+                        "content":req.content,
+                        "type":req.type
+                    };
+                    console.log('--------1-------');
+                    console.log(response);
+                    console.log('--------1-------');
+                    return response;
                 }
                 catch(error){
                     req.content=[req.info];
                     req.type='success';
-                    console.log('req0'+req);
-                    console.log(Object.values(req));
-                    return Object.values(req);
+                    response = {
+                        "content":req.content,
+                        "type":req.type
+                    };
+                console.log('--------2-------');
+                console.log(response);
+                console.log('--------2-------');
+                return response;
                 }
             }
-            console.log('data1');
-            return senddata();
-
+       return  senddata();
         }
     }
 }

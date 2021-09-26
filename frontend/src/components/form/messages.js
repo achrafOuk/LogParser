@@ -3,6 +3,9 @@ import Message from "./message";
 
 class Messages extends Component {
     render() { 
+        console.log('----');
+        console.log(this.props.messages);
+        console.log('----');
         let errorType ="alert alert-"+this.props.type ;
         let isEmpty = typeof(this.props.messages.content)!=='undefined' 
         && this.props.messages.content.length>0 ;
