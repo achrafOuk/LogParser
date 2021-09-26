@@ -29,7 +29,7 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form 
-                            onSubmit={ (e)=> this.updateMsg(this.props.onSubmit(e) ) } 
+                            onSubmit={ (e)=> this.props.onSubmit(e).then( data => this.updateMsg(data) ) } 
                             className="user">
                                 <Messages messages={this.state.msg} type="danger" />
                                 {

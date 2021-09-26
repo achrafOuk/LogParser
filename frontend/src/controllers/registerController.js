@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import RegisterModel from "../models/registerModel";
 class RegisterController {
     validateEmail(email){

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useEffect } from "react";
 import Form from "../../components/form/form";
 import RegisterController from "../../controllers/registerController";
 import "../../styles/form.css";
@@ -44,7 +44,7 @@ export default class Register extends Component{
         return(
         <>
             <Form key='1' pageName='Regsiter' 
-            onSubmit={ (e) => registerControler.sendData(e) } 
+            onSubmit={ (e) =>  registerControler.sendData(e) } 
             onEdit={  registerControler.collectData } 
             inputs={inputs} submit="If have an account, signin!" href='/login'/>
         </>

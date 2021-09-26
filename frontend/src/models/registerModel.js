@@ -91,7 +91,7 @@ class RegisterModel {
                 console.log('--------2-------');
                 console.log(response);
                 console.log('--------2-------');
-                return response;
+                return response.then(data=>{ return data; });
                 }
             }
        return  senddata();
