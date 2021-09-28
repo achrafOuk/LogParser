@@ -1,6 +1,9 @@
-import { useEffect } from "react";
 import RegisterModel from "../models/registerModel";
 class RegisterController {
+    constructor(){
+        this.title = 'LogParser - Regsiter';
+        document.querySelector('title').innerText= this.title;
+    }
     validateEmail(email){
             const pattern = /^[a-z0-9]+[(_|.)a-z0-9]*@[a-z]+.[a-z]+$/;
             let result = new RegExp(pattern).test(email);
@@ -40,13 +43,14 @@ class RegisterController {
         let inputs = document.querySelectorAll('input');
         if (inputs.length===4){
             let name = (inputs[0].value);
-            let  email= (inputs[1].value);
+            let  email= (inputs[1].value.trim());
             let pwd = (inputs[2].value);
             let repwd = (inputs[3].value);
             let  data = new RegisterModel(name,email,pwd,repwd);
             return data.sendData();
         }
     }
+    
     
 }
 export default RegisterController ;

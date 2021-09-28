@@ -59,7 +59,6 @@ class RegisterModel {
     sendData(){
         if(this.validateData().content.length===0){
             let _data = this.getData();
-            console.log('data send');
             let response;
             let senddata = async () =>{
                 let req = await fetch('http://127.0.0.1:8000/api/signup/',{
@@ -76,9 +75,6 @@ class RegisterModel {
                         "content":req.content,
                         "type":req.type
                     };
-                    console.log('--------1-------');
-                    console.log(response);
-                    console.log('--------1-------');
                     return response;
                 }
                 catch(error){
@@ -88,10 +84,7 @@ class RegisterModel {
                         "content":req.content,
                         "type":req.type
                     };
-                console.log('--------2-------');
-                console.log(response);
-                console.log('--------2-------');
-                return response.then(data=>{ return data; });
+                return response;
                 }
             }
        return  senddata();
