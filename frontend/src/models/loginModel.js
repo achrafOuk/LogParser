@@ -35,9 +35,11 @@ class LoginModel {
                     headers: {"Content-type": "application/json; charset=UTF-8"}
                 })
                 .then(response => { return response.json() }).catch(err => { return (err)} ) ;
+                console.log(req);
                 if( typeof(req.refresh)==='undefined' 
                 && typeof(req.detail)==='undefined' 
                 && typeof(req.infos)==='undefined'){
+                    console.log('1');
                     req.content=req.content.replace(/{'/,"").replace(/'}/,"");
                     req.type='danger';
                     req.content =[req.content]
@@ -49,6 +51,7 @@ class LoginModel {
                 }
                 else if(typeof(req.refresh)==='undefined' 
                 && typeof(req.detail)==='undefined' ){
+                    console.log('2');
                     req.content=[req.info];
                     req.type='danger';
                     response = {
@@ -58,12 +61,14 @@ class LoginModel {
                 return response;
                 }
                 else if(typeof(req.info)==='undefined' ){
+                    console.log('3');
                     req.content=['you will redirect in instead'];
                     req.type='success';
                     response = {
                         "content":req.content,
                         "type":req.type
                     };
+                console.log(response);
                 return response;
                 }
             }
