@@ -4,9 +4,7 @@ import Button from "../../components/form/button";
 import InputGroup from "../../components/form/inputGroup";
 import Link from "../../components/form/link";
 import Messages from "../../components/form/messages";
-import useRedirect from "../../controllers/useRegister";
 import "../../styles/form.css";
-import { useHistory } from "react-router-dom";
 export default class Form extends Component{
     constructor(){
             super();
@@ -21,8 +19,8 @@ export default class Form extends Component{
         }
     
     render(){
-        if(this.state.msg.type==='success'){
-            return <Redirect to='/login'/>;
+        if( typeof(this.state.msg.type)!=='undefined' && this.state.msg.type==='success'){
+            return <Redirect to='/'/>;
         }
         return(
         <div className="container">
@@ -35,7 +33,8 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form 
-                            onSubmit={ (e)=> this.props.onSubmit(e).then( data => this.updateMsg(data)) } 
+                            onSubmit={ (e)=> this.props.onSubmit(e).then( data => this.updateMsg(data))
+                                .then(user=> console.log(user)).catch(err=> console.log('error:'+err)) } 
                             className="user">
                                 <Messages messages={this.state.msg} type="danger" />
                                 {

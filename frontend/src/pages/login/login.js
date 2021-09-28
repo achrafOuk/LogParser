@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Form from "../../components/form/form";
+import LoginController from "../../controllers/loginController";
 import "../../styles/form.css";
 export default class Login extends Component{
     render(){
@@ -17,9 +18,14 @@ export default class Login extends Component{
             "type":"password"
         }];
         let inputs =[username,passwords];
+        let login = new LoginController();
         return(
             <>
-            <Form pageName='Login' inputs={inputs} submit="Don't have an account? signin!" href='/register'/>
+            <Form pageName='Login' 
+            inputs={inputs} 
+            onSubmit={ (e) =>  login.sendData(e) } 
+            onEdit={  login.collectData } 
+            submit="Don't have an account? signin!" href='/register'/>
             </>
         );
     }
