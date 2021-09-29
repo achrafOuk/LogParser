@@ -1,4 +1,4 @@
-import { Component, useEffect } from "react";
+import { Component} from "react";
 import Form from "../../components/form/form";
 import RegisterController from "../../controllers/registerController";
 import "../../styles/form.css";

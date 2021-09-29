@@ -10,16 +10,12 @@ function App() {
   return (
         <Router>
           <Navbar />
-          <div className="App">
-            <header className="App-header">
           <Switch>
             <Route exact path='/' component={Index}></Route>
             <Route path='/register'component={Register}></Route>
             <Route path='/login'component={Login}></Route>
             <Route path='*' component={Error404} ></Route>
           </Switch>
-          </header>
-          </div>
         </Router>
         );
 }
