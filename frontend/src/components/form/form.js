@@ -37,7 +37,6 @@ export default class Form extends Component{
                             <form 
                             onSubmit={ (e)=> this.props.onSubmit(e)
                                 .then( data => {this.updateMsg(data); return data})
-                                .then(dat => {console.log('data:'+dat.token); return dat})
                                 .then( tokens =>
                                 { 
                                 this.props.setToken( useSetToken(tokens.token) , useSetRefrech(tokens.refresh ) ) ; 

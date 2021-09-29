@@ -12,7 +12,6 @@ function App() {
   let auth = new AuthController();
   return (
         <Router>
-          <Navbar token={auth.getToken}/>
           <Switch>
             <Route exact path='/' component={Index}></Route>
             <Route exact path='/file'component={FileUpload}></Route>

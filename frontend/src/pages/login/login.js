@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Form from "../../components/form/form";
+import Navbar from "../../components/navbar/navbar";
 import LoginController from "../../controllers/loginController";
 import "../../styles/form.css";
 export default class Login extends Component{
@@ -21,6 +22,7 @@ export default class Login extends Component{
         let login = new LoginController();
         return(
             <>
+            <Navbar />
             <Form pageName='Login' 
             inputs={inputs} 
             onSubmit={ (e) =>  login.sendData(e) } 

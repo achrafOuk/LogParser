@@ -1,5 +1,6 @@
 import { Component} from "react";
 import Form from "../../components/form/form";
+import Navbar from "../../components/navbar/navbar";
 import RegisterController from "../../controllers/registerController";
 import "../../styles/form.css";
 
@@ -43,6 +44,7 @@ export default class Register extends Component{
     let registerControler =   new RegisterController();
         return(
         <>
+            <Navbar />
             <Form key='1' pageName='Regsiter' 
             onSubmit={ (e) =>  registerControler.sendData(e) } 
             onEdit={  registerControler.collectData } 
