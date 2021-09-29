@@ -5,10 +5,12 @@ export default class AuthController{
     }
     setToken(jwt,refrech){
         this.token.setJWT(jwt);
-        this.token.setRefrech(jwt);
+        this.token.setRefrech(refrech);
     }
     getToken(){
-        return new AuthModel().getJWT();
+        let token = new AuthModel().getJWT();
+        console.log("token:"+token);
+        return token;
     }
     removeToken(){
         this.token.removeToken();

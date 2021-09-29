@@ -44,7 +44,7 @@ export default class Register extends Component{
     let registerControler =   new RegisterController();
         return(
         <>
-            <Navbar />
+            <Navbar token={() => this.props.token()}/>
             <Form key='1' pageName='Regsiter' 
             onSubmit={ (e) =>  registerControler.sendData(e) } 
             onEdit={  registerControler.collectData } 

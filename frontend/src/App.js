@@ -13,11 +13,17 @@ function App() {
   return (
         <Router>
           <Switch>
-            <Route exact path='/' component={Index}></Route>
-            <Route exact path='/file'component={FileUpload}></Route>
-            <Route exact path='/register'component={Register}></Route>
+            <Route exact path='/' >
+              <Index token={()=>auth.getToken()} ></Index>
+            </Route>
+            <Route exact path='/file' >
+              <FileUpload token={()=>auth.getToken()} ></FileUpload>
+            </Route>
+            <Route exact path='/register'>
+              <Register token={()=>auth.getToken()} ></Register>
+            </Route>
             <Route exact path='/login'>
-              <Login setToken={ (j,t) => auth.setToken(j,t)}/>
+              <Login token={()=>auth.getToken()} setToken={ (j,t) => auth.setToken(j,t)}/>
               </Route>
             <Route path='*' component={Error404} ></Route>
           </Switch>

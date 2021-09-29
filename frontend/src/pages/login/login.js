@@ -20,9 +20,10 @@ export default class Login extends Component{
         }];
         let inputs =[username,passwords];
         let login = new LoginController();
+        console.log(this.props.token());
         return(
             <>
-            <Navbar />
+            <Navbar token={() => this.props.token()}/>
             <Form pageName='Login' 
             inputs={inputs} 
             onSubmit={ (e) =>  login.sendData(e) } 
