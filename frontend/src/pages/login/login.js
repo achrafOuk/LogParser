@@ -24,6 +24,7 @@ export default class Login extends Component{
             <Form pageName='Login' 
             inputs={inputs} 
             onSubmit={ (e) =>  login.sendData(e) } 
+            setToken={  this.props.setToken }
             onEdit={  login.collectData } 
             submit="Don't have an account? signin!" href='/register'/>
             </>

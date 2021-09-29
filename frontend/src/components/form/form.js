@@ -4,6 +4,8 @@ import Button from "../../components/form/button";
 import InputGroup from "../../components/form/inputGroup";
 import Link from "../../components/form/link";
 import Messages from "../../components/form/messages";
+import useSetRefrech from "../../hooks/useSetRefrech";
+import useSetToken from "../../hooks/useSetToken";
 import "../../styles/form.css";
 export default class Form extends Component{
     constructor(){
@@ -33,8 +35,15 @@ export default class Form extends Component{
                             <div className="text-center">
                             </div>
                             <form 
-                            onSubmit={ (e)=> this.props.onSubmit(e).then( data => this.updateMsg(data))
-                                .then(user=> console.log(user)).catch(err=> console.log('error:'+err)) } 
+                            onSubmit={ (e)=> this.props.onSubmit(e)
+                                .then( data => {this.updateMsg(data); return data})
+                                .then(dat => {console.log('data:'+dat.token); return dat})
+                                .then( tokens =>
+                                { 
+                                this.props.setToken( useSetToken(tokens.token) , useSetRefrech(tokens.refresh ) ) ; 
+                                return tokens;
+                                })
+                                .catch( err=> console.log('error:'+err)) } 
                             className="user">
                                 <Messages messages={this.state.msg} type="danger" />
                                 {

@@ -1,17 +1,16 @@
 import AuthModel from "../models/AuthModel";
 export default class AuthController{
     constructor(){
-        let token = new AuthModel();
+         this.token = new AuthModel();
     }
-    setToken(jwt){
-    let token = new AuthModel();
-    token.setJWT(jwt);
+    setToken(jwt,refrech){
+        this.token.setJWT(jwt);
+        this.token.setRefrech(jwt);
     }
     getToken(){
         return new AuthModel().getJWT();
     }
     removeToken(){
-    let token = new AuthModel();
-    token.removeToken();
+        this.token.removeToken();
     }
 }

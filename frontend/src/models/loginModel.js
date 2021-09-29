@@ -66,7 +66,9 @@ class LoginModel {
                     req.type='success';
                     response = {
                         "content":req.content,
-                        "type":req.type
+                        "type":req.type,
+                        "token":req.access,
+                        "refrech":req.refrech,
                     };
                 console.log(response);
                 return response;

@@ -1,21 +1,24 @@
 export default class AuthModel{
     constructor(){
-        this.token;
-        if( AuthModel.instance instanceof AuthModel){
-            	return AuthModel.instance;
-            }
-            Object.freeze(this);
-            AuthModel.instance = this;
+        this.token = undefined;
+        this.refrech = undefined;
     }
-    setJWT(jst){
+    setJWT(jwt){
         this.token = jwt;
+    }
+    setRefrech(refrech){
+
+        this.refrech = refrech;
     }
     getJWT(){
         return this.token;
     }
+    getRefrech(){
+        return this.refrech;
+    }
     removeToken(){
-        token = this.token;
+        let token = this.token;
         if(typeof(token)==="undefined") return token;
-        return 'undefined';
+        return undefined;
     }
 }
