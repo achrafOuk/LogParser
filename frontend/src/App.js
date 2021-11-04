@@ -5,11 +5,10 @@ import Error404 from './pages/404/404';
 import Index from './pages/landingpag';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
-import Navbar from './components/navbar/navbar';
 import FileUpload from './pages/fileUpload/fileUpload';
-import AuthController from './controllers/AuthController';
+import AuthController1 from './controllers/AuthController';
 function App() {
-  let auth = new AuthController();
+  let auth = new AuthController1();
   return (
         <Router>
           <Switch>

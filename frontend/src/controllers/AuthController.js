@@ -1,16 +1,23 @@
-import AuthModel from "../models/AuthModel";
-export default class AuthController{
-    constructor(){
-         this.token = new AuthModel();
+import token from "../models/AuthModel";
+/*
+Save JWT token inside variable
+*/
+export default class AuthController1{
+  constructor() {
+    if (AuthController1._instance) {
+      return AuthController1._instance;
     }
-    setToken(jwt,refrech){
-        this.token.setJWT(jwt);
+    this.token = token;
+    AuthController1._instance = this;
+    // ... Your rest of the constructor code goes after this
+  }
+  setToken(jwt,refrech){
+        this.token.setToken(jwt);
         this.token.setRefrech(refrech);
     }
     getToken(){
-        let token = new AuthModel().getJWT();
-        console.log("token:"+token);
-        return token;
+        let Token = token.getToken();
+        return Token;
     }
     removeToken(){
         this.token.removeToken();

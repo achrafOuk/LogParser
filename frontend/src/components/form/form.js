@@ -21,9 +21,9 @@ export default class Form extends Component{
         }
     
     render(){
-        if( typeof(this.state.msg.type)!=='undefined' && this.state.msg.type==='success'){
+        /*if( typeof(this.state.msg.type)!=='undefined' && this.state.msg.type==='success'){
             return <Redirect to='/'/>;
-        }
+        }*/
         return(
         <div className="container">
         <div className="card o-hidden border-0 shadow-lg my-5">

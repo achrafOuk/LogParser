@@ -2,13 +2,12 @@
 LogParser is a full stack web app created with Django rest api and React.js, the goal of this app is to parse the log files
 and show them in a nice UI
 # download the application
-git clone 
+git clone https://github.com/achrafOuk/LogParser
 # Backend
 ## requirements
 Python >= 3.7
 ## install Backend dependenices
 ```
-git clone https://github.com/achrafOuk/LogParser
 cd LogParser/django-restapi
 pip install -r requirements.txt
 ```
@@ -25,9 +24,10 @@ python manage.py migrate
 cd LogParser/django-restapi
 python manage.py runserver
 ```
-
 # Front end
 ## running the server
+```
 cd LogParser/frontend
 npm start
+```
 

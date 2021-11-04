@@ -1,17 +1,22 @@
-export default class AuthModel{
+class AuthModel1{
     constructor(){
-        this.token = undefined;
-        this.refrech = undefined;
+        if (AuthModel1._instance) {
+        return AuthModel1._instance;
+        }
+        this.token=undefined;
+        this.refrech=undefined;
+        AuthModel1._instance = this;
     }
-    setJWT(jwt){
-        this.token = jwt;
+    getToken()
+    {
+        return this.token;
+    }
+    setToken(token){
+        this.token = token;
     }
     setRefrech(refrech){
 
         this.refrech = refrech;
-    }
-    getJWT(){
-        return this.token;
     }
     getRefrech(){
         return this.refrech;
@@ -22,3 +27,5 @@ export default class AuthModel{
         return undefined;
     }
 }
+let token = new AuthModel1();
+export default token;
