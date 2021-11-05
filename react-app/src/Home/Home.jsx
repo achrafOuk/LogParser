@@ -1,7 +1,17 @@
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/navbar/Navbar'
 import Button from '../Components/shared/button';
-//<Button click={()=>this.setState({redirect:true})} text="Start Now"/>
+import { Redirect } from "react-router-dom";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+function redirect(){
+}
 function Home(){
+    let [isDirected,setDirect] = useState(false);
+    let isLoged = useSelector(state=>state.login);
+    if(isDirected){
+        return <Redirect to="/register"/>;
+    }
     return(
         <div>
         <Navbar/>
@@ -13,7 +23,8 @@ function Home(){
                         <h1>Log Parser</h1>
                         <h2>Log Parser is a website to parse log</h2>
                         <Button 
-                                text="Start now" 
+                        click ={()=>setDirect(true)}
+                        text="Start now" 
                         style={{background:'#1d1d1d',background: "#f8f9fa !important",border: "none"}}/>
                     </div>
                 </div>
