@@ -13,12 +13,11 @@ function Home(){
                         <h1>Log Parser</h1>
                         <h2>Log Parser is a website to parse log</h2>
                         <Button 
-                                text="submit" 
-                        style={{background:'#1d1d1d'}}/>
+                                text="Start now" 
+                        style={{background:'#1d1d1d',background: "#f8f9fa !important",border: "none"}}/>
                     </div>
                 </div>
         </div>
-
         </div>
     )
 }

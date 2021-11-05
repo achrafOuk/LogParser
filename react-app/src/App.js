@@ -1,17 +1,19 @@
-import { BrowserRouter as Router,Route,Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import error404 from './404page/404page';
 import './App.css';
 import Home from './Home/Home';
+import Login from './Login/login';
 function App() {
   return (
-    <div className="App">
+  <div className="App">
     <Router>
-      <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="login" element={<Home/>} />
-        <Route exact path="register" element={<Home/>} />
-      </Routes>
+      <Switch>
+        <Route exact path="/" component = {Home} />
+        <Route exact path="/login" component = {Login} />
+        <Route path="*" component = {error404} />
+      </Switch>
     </Router>
-</div>
+  </div>
   );
 }
 export default App;

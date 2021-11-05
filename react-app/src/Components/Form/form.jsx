@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-
+import Button from "../shared/button";
+import { InputGroup } from "./InputGroup";
+//<Link  text={props.submit} href={props.href}/>
 export function Form(props){
     return(
         <div className="container">
@@ -23,7 +25,6 @@ export function Form(props){
                                 style={{background:'#d6002f'}}/>
                             </form>
                             <hr/>
-                            <Link  text={props.submit} href={props.href}/>
                         </div>
                     </div>
                 </div>
