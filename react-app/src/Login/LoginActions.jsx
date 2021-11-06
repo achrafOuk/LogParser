@@ -1,5 +1,5 @@
 //define the login actions
-export function login(){
+export function loginAction(){
     return{
         type:'LOGIN'
     }

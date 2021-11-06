@@ -1,11 +1,17 @@
 // 
-export function loginReducer(state=0,action){
+let initStates={
+    jwt:'',
+    refrech:'',
+    msgs:[],
+    login:[]
+}
+export function loginReducer(state=initStates,action){
     switch(action.type){
         case 'LOGIN':
-            return '5';
+            return state;
         case 'LOGOUT':
-            return '1';
+            return action.type;
         default:
-            return '2';
+            return action.type;
         }
 }

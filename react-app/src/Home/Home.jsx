@@ -9,6 +9,7 @@ function redirect(){
 function Home(){
     let [isDirected,setDirect] = useState(false);
     let isLoged = useSelector(state=>state.login);
+    console.log(isLoged);
     if(isDirected){
         return <Redirect to="/register"/>;
     }
@@ -21,7 +22,7 @@ function Home(){
             <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-9 text-center">
                         <h1>Log Parser</h1>
-                        <h2>Log Parser is a website to parse log</h2>
+                        <h2>Log Parser is a website to parse logs</h2>
                         <Button 
                         click ={()=>setDirect(true)}
                         text="Start now" 

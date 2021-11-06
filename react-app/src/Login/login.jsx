@@ -1,5 +1,6 @@
 import { Form } from "../Components/Form/form";
 import Navbar from "../Components/navbar/Navbar";
+import { onWrite } from "./LoginController";
 
 export default function Login(){
         let username=[{
@@ -17,6 +18,7 @@ export default function Login(){
         }];
         let inputs =[username,passwords];
         //let login = new LoginController();
+
         return(
             <>
             <Navbar />

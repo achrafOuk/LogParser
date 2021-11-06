@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import Button from "../shared/button";
 import { InputGroup } from "./InputGroup";
+import { onWrite } from "../../Login/LoginController";
+import { useEffect, useState } from "react";
 //<Link  text={props.submit} href={props.href}/>
 export function Form(props){
+    let [infos,setInfos] = useState([]);
+    useEffect(()=>{
+        let inputValues = Object.keys(infos).length;
+        if(infos!==props.inputs.length){
+            console.log('infos:'+inputValues);
+        }
+    })
     return(
         <div className="container">
         <div className="card o-hidden border-0 shadow-lg my-5">
@@ -17,7 +26,7 @@ export function Form(props){
                                 {
                                 props.inputs.map( 
                                 input => <InputGroup key={props.input} 
-                                onWrite={ ()=> this.updateMsg( props.onEdit() ) } 
+                                onWrite={()=>setInfos(onWrite(props.inputs))}
                                 inputs={input} />)}
                                 <Button 
                                 text="submit" 
