@@ -1,15 +1,21 @@
-import { Link } from "react-router-dom";
 import Button from "../shared/button";
 import { InputGroup } from "./InputGroup";
-import { onWrite } from "../../Login/LoginController";
 import { useEffect, useState } from "react";
 //<Link  text={props.submit} href={props.href}/>
 export function Form(props){
     let [infos,setInfos] = useState([]);
-    useEffect(()=>{
-        let inputValues = Object.keys(infos).length;
-        if(infos!==props.inputs.length){
-            console.log('infos:'+inputValues);
+    useEffect( ()=>{
+        let inputValues = Object.keys(infos);
+        let i,values=inputValues.length;
+        let isEmpty = true;
+        for(i=0;i<values;i++){
+            if(infos[inputValues[i]]==='')
+            {
+                isEmpty = false;
+            }
+        }
+        if( isEmpty && infos.length!==0 ){
+            console.log(infos);
         }
     })
     return(
@@ -22,11 +28,9 @@ export function Form(props){
                         <div className="p-5">
                             <div className="text-center">
                             </div>
-                            <form className="user">
-                                {
-                                props.inputs.map( 
-                                input => <InputGroup key={props.input} 
-                                onWrite={()=>setInfos(onWrite(props.inputs))}
+                            <form method="POST" className="user"> 
+                            { props.inputs.map( input => <InputGroup key={props.input} 
+                                onWrite={()=>setInfos(props.onWrite(props.inputs))}
                                 inputs={input} />)}
                                 <Button 
                                 text="submit" 

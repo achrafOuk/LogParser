@@ -7,15 +7,12 @@ import { createStore } from 'redux';
 import { allReducer, comReducers} from './App/allReducer'
 import { Provider } from 'react-redux';
 import {   loginAction, logout } from './Login/LoginActions';
+import { initLogin } from './Login/LoginReducers';
 const store = createStore(
   allReducer,
+  initLogin,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
-console.log(loginAction());
-store.dispatch(loginAction());
-console.log(store.getState())
-store.dispatch(loginAction());
-console.log(store.getState())
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -24,7 +21,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
