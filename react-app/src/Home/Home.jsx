@@ -8,8 +8,10 @@ function redirect(){
 }
 function Home(){
     let [isDirected,setDirect] = useState(false);
-    let isLoged = useSelector(state=>state.login);
-    console.log(isLoged);
+    let user = useSelector(state => state.login.user);
+    if( user ){
+        return <Redirect to='/home'/>;
+    }
     if(isDirected){
         return <Redirect to="/register"/>;
     }

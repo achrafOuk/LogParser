@@ -4,33 +4,14 @@ import { useDispatch } from "react-redux";
 import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
-import { useLogin } from "./useLogin";
-/*
-let username=[{
-            "id":1,
-            "placeholder":"Username",
-            "id":"exampleFirstName",
-            "type":"text"
-        }];
-        let passwords=[{
-            "id":3,
-            "placeholder":"Password",
-            "id":"password",
-            "type":"password"
-        }];
-let inputs =[username,passwords];
-<Form pageName='Login' 
-            inputs={inputs} 
-            onWrite={onWrite}
-submit="Don't have an account? signin!" href='/register'/>
-<button class="btn btn-primary btn-user btn-block" style="background: rgb(214, 0, 47);">submit</button>
-*/
+import { Redirect } from 'react-router'
 
 export default function Login() {
     let [user, letUser] = useState('');
     let [pwd, letPwd] = useState('');
+    let [direct,letRedirect] = useState(false);
     let dispatch = useDispatch();
-    let jwtToken = useSelector( (state) => state);
+    let username = useSelector( (state) => state.login.user);
     const SubmitLogin = (e) =>{
         e.preventDefault();
         let userInfo={
@@ -50,14 +31,13 @@ export default function Login() {
             }
             else{
                 dispatch(loginAction(user,req.access,req.refresh));
-                console.log(jwtToken);
+                letRedirect(true);
             }
         }
         return senddata();
     }
-    useEffect(()=>{
-        console.log('token:',jwtToken);
-    },[])
+    
+    
     return (
         <>
             <Navbar/>

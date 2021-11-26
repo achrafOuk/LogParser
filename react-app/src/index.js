@@ -3,20 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
-import { allReducer, comReducers} from './App/allReducer'
+import {store,persistor} from './App/AppStore';
 import { Provider } from 'react-redux';
-import {   loginAction, logout } from './Login/LoginActions';
-import { initLogin } from './Login/LoginReducers';
-const store = createStore(
-  allReducer,
-  initLogin,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+import { PersistGate } from 'redux-persist/integration/react'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <PersistGate  loading={null} persistor={persistor}>
       <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

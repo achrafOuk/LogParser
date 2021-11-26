@@ -14,8 +14,3 @@ export function logout(){
         type:'LOGOUT'
     }
 }
-export function refrech(){
-    return{
-        type:'REFRECH'
-    }
-}

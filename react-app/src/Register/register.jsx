@@ -1,5 +1,7 @@
 import Navbar from '../Components/navbar/Navbar'
 import { Form } from "../Components/Form/form";
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router'
 export function Register(){
     let username=[{
             "key":1,
@@ -27,6 +29,10 @@ export function Register(){
         }
     ];
     let inputs = [username,email,passwords]
+    let user = useSelector(state => state.login.user);
+    if( user ){
+        return <Redirect to='/home'/>;
+    }
     return(
         <>
         <Navbar></Navbar>
