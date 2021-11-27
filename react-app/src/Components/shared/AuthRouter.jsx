@@ -1,10 +1,10 @@
 import { Redirect, Route } from "react-router";
 import { useSelector } from 'react-redux';
-export default function AuthRouter({children,...rest}){
+export default function AuthRouter({...rest}){
     let jwtToken = useSelector( (state) => state.login.jwt);
+    const path = rest.computedMatch.path;
     return (
-        <Route {...rest} render={()=>{
-            return jwtToken ? children: <Redirect to='/login' />
-        }}/>
+            jwtToken ? <Route component={rest.component} {...rest.computedMatch} />
+            : <Redirect to='/login' />
     )
 }

@@ -5,7 +5,6 @@ import Home from './Home/Home';
 import Login from './Login/login';
 import { LogParser } from './LogParser/LogParser';
 import { Register } from './Register/register';
-import { Redirect } from 'react-router'
 import AuthRouter from './Components/shared/AuthRouter';
 import PublicRouter from './Components/shared/PublicRouter';
 // <Route exact path="/home" component = {LogParser} />
@@ -14,17 +13,10 @@ function App() {
   <div className="App">
     <Router>
       <Switch>
-        <Route exact path="/" component = {Home} />
-
-        <AuthRouter path='/home'  >
-              <LogParser/>
-        </AuthRouter>
-
-        <PublicRouter path='/login'  >
-              <Login/>
-        </PublicRouter>
-
-        <Route exact path="/register" component = {Register} />
+        <PublicRouter exact path='/' component = {Home} />
+        <AuthRouter exact path='/home' component = {LogParser} />
+        <PublicRouter exact path='/login' component = {Login} />
+        <PublicRouter exact path='/register' component = {Register} />
         <Route path="*" component = {error404} />
       </Switch>
     </Router>

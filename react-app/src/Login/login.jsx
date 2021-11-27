@@ -1,17 +1,14 @@
+import React from "react";
 import {useEffect, useState} from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
-import { Redirect } from 'react-router'
-
-export default function Login() {
+import { createBrowserHistory } from 'history';
+export default function Login(props) {
     let [user, letUser] = useState('');
     let [pwd, letPwd] = useState('');
-    let [direct,letRedirect] = useState(false);
     let dispatch = useDispatch();
-    let username = useSelector( (state) => state.login.user);
     const SubmitLogin = (e) =>{
         e.preventDefault();
         let userInfo={
@@ -31,13 +28,11 @@ export default function Login() {
             }
             else{
                 dispatch(loginAction(user,req.access,req.refresh));
-                letRedirect(true);
+                props.history.push('/home');
             }
         }
         return senddata();
     }
-    
-    
     return (
         <>
             <Navbar/>
