@@ -1,7 +1,6 @@
 export let initLogin={
     jwt:'',
     refresh:'',
-    msgs:[],
     user:null
 }
 export function loginReducer(state=initLogin,action){
@@ -17,6 +16,6 @@ export function loginReducer(state=initLogin,action){
         case 'REFRECH':
             return {...state,jwt:action.jwt};
         default:
-            return action.type;
+            return {...state};
     }
 }

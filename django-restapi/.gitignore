@@ -1,4 +1,4 @@
 myapp/migrations/*
-db.sqlite3
+*/db.sqlite3
 read.txt
 media/*

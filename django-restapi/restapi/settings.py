@@ -154,16 +154,12 @@ DEFAULTS = {
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
-
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
-
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-
     'JTI_CLAIM': 'jti',
-
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=56),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
@@ -176,3 +172,49 @@ CORS_ORIGIN_WHITELIST = (
   'http://localhost:5000',
   'http://localhost:3001',
 )
+deploy =False    
+if not deploy:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+else:
+    STATIC_URL = '/static/'
+
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL="home"
+LOGOUT_REDIRECT_URL="login"
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True     # opional, as this will log you out when browser is closed
+SESSION_COOKIE_AGE = 50*60                   # 0r 5 * 60, same thing
+SESSION_SAVE_EVERY_REQUEST = True          # Will prrevent from logging you out after 300 seconds
+handler404 = 'manage_students.views.handler404'
+#handler500 = 'manage_students.views.handler500'
+try:
+    import django_heroku
+    from decouple import config
+except:
+    pass
+
+try:
+    django_heroku.settings(locals())
+except:
+    pass
+
+#HTTPS settings
+SESSION_COOKIE_SECURE =True
+SECURE_SSL_SECURE = True
+CSRF_COOKIE_SECURE =True

@@ -1,20 +1,11 @@
-import { Link } from 'react-router-dom';
 import Navbar from '../Components/navbar/Navbar'
 import Button from '../Components/shared/button';
 import { Redirect } from "react-router-dom";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-function redirect(){
-}
 function Home(){
     let [isDirected,setDirect] = useState(false);
     let user = useSelector(state => state.login.user);
-    if( user ){
-        return <Redirect to='/home'/>;
-    }
-    if(isDirected){
-        return <Redirect to="/register"/>;
-    }
     return(
         <div>
         <Navbar/>

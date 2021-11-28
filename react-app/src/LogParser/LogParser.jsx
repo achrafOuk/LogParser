@@ -1,7 +1,9 @@
 import Button from "../Components/shared/button";
 import Navbar from '../Components/navbar/Navbar'
+import { useState } from 'react';
 export function LogParser()
 {
+    let [log,useLog] = useState([]);
     return(
         <>
         <Navbar></Navbar>
@@ -12,7 +14,7 @@ export function LogParser()
             <div class="card-body">
                 <Button text="upload file" style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} />
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                         <thead>
                             <tr>
                                 <th>message</th>
