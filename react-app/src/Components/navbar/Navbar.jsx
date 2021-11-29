@@ -1,13 +1,18 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { DropDown } from "./DropDown";
 import Links from "./Links"
 function Navbar(){
         let user = useSelector( (state)=>state.login.user );
+        let [show,SetShow] = useState(false);
+        const showDropMenu = ()=> SetShow(!show);
         if(user){
                 return(
                 <nav style={{ width:'100%' }} class="navbar navbar-light bg-light justify-content-between">
                 <Links href='/home' text='Log Parser' />
-                <div class="form-inline">
-                <Links href='/home' text={user} />
+                <div class="form-inline" style={{"margin-right": "19%"}}>
+                <DropDown user={user} isShow={show} showDropMenu={showDropMenu} />
                 </div>
                 </nav>
                 )

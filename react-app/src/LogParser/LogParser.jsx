@@ -1,8 +1,12 @@
 import Button from "../Components/shared/button";
 import Navbar from '../Components/navbar/Navbar'
 import { useState } from 'react';
+import { useEffect } from "react";
 export function LogParser()
 {
+    useEffect( ()=>{
+        console.log(new Date().getDate());
+    },[]);
     let [log,useLog] = useState([]);
     let logs =[
         {'error':'warning','error_msg':'This is a warning'},
@@ -16,7 +20,6 @@ export function LogParser()
     alignItems: "center"
     }
     console.log(logs);
-    
     return(
         <>
         <Navbar></Navbar>

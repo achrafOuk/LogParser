@@ -7,6 +7,7 @@ import { LogParser } from './LogParser/LogParser';
 import { Register } from './Register/register';
 import AuthRouter from './Components/shared/AuthRouter';
 import PublicRouter from './Components/shared/PublicRouter';
+import { Logout } from './Logout/Logout';
 // <Route exact path="/home" component = {LogParser} />
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Switch>
         <PublicRouter exact path='/' component = {Home} />
         <AuthRouter exact path='/home' component = {LogParser} />
+        <AuthRouter exact path='/logout' component = {Logout} />
         <PublicRouter exact path='/login' component = {Login} />
         <PublicRouter exact path='/register' component = {Register} />
         <Route path="*" component = {error404} />
