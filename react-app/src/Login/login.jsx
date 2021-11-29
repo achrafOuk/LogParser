@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history';
 export default function Login(props) {
     let [user, letUser] = useState('');
     let [pwd, letPwd] = useState('');
+    let [msg, useMsg] = useState('');
     let dispatch = useDispatch();
     const SubmitLogin = (e) =>{
         e.preventDefault();

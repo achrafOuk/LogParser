@@ -4,6 +4,19 @@ import { useState } from 'react';
 export function LogParser()
 {
     let [log,useLog] = useState([]);
+    let logs =[
+        {'error':'warning','error_msg':'This is a warning'},
+        {'error':'warning','error_msg':'This is a warning'},
+        {'error':'warning','error_msg':'This is a warning'},
+        {'error':'warning','error_msg':'This is a warning'},
+        {'error':'warning','error_msg':'This is a warning'},
+    ];
+    let style={
+    justifyContent: "center",
+    alignItems: "center"
+    }
+    console.log(logs);
+    
     return(
         <>
         <Navbar></Navbar>
@@ -17,19 +30,36 @@ export function LogParser()
                     <table class="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                         <thead>
                             <tr>
-                                <th>message</th>
                                 <th>Error type</th>
+                                <th>message</th>
                             </tr>
+                            
                         </thead>
+                        { logs.map( (msg)=>(
+                            <tr>
+                                <th>{msg.error}</th>
+                                <th>{msg.error_msg}</th>
+                            </tr>
+                            ))
+                        }
                         <tfoot>
                             <tr>
-                                <th>message</th>
                                 <th>Error type</th>
+                                <th>message</th>
                             </tr>
                         </tfoot>
                         <tbody>
                         </tbody>
                     </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" style={style}>
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
                 </div>
             </div>
     </div>
