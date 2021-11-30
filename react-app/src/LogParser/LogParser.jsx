@@ -5,13 +5,13 @@ import { createPages, DisicrPage, IncrimentPage } from "./page";
 export function LogParser()
 {
     let logs =[
-        {'error':'warning','error_msg':'This is a warning'},
-        {'error':'warning','error_msg':'This is a warning'},
-        {'error':'warning','error_msg':'This is a warning'},
-        {'error':'warning','error_msg':'This is a warning'},
-        {'error':'warning','error_msg':'This is a warning'},
+        {'error':'warning1','error_msg':'This is a warning'},
+        {'error':'warning2','error_msg':'This is a warning'},
+        {'error':'warning3','error_msg':'This is a warning'},
+        {'error':'warning4','error_msg':'This is a warning'},
+        {'error':'warning5','error_msg':'This is a warning'},
     ];
-    let [log,setLog] = useState([]);
+    let [log,setLog] = useState(logs);
     let [page,setPage] = useState(1);
     let pagesNum = Math.ceil(logs.length/2);
     let pages = createPages(pagesNum);
@@ -19,6 +19,15 @@ export function LogParser()
     justifyContent: "center",
     alignItems: "center"
     }
+    useEffect(()=>{
+        console.log(log);
+        console.log('page',page);
+        let start = 2*(page-1);
+        let end = Math.min(start+2,logs.length);
+        console.log(start,end);
+        console.log(logs.slice(start,end));
+        setLog(logs.slice(start,end));
+    },[page]);
     return(
         <>
         <Navbar></Navbar>
@@ -37,7 +46,7 @@ export function LogParser()
                             </tr>
                             
                         </thead>
-                        { logs.map( (msg)=>(
+                        { log.map( (msg)=>(
                             <tr>
                                 <th>{msg.error}</th>
                                 <th>{msg.error_msg}</th>
@@ -57,15 +66,16 @@ export function LogParser()
                     <ul class="pagination" style={style}>
                         <li 
                         className={page<=1? 'page-item page-link disabled':'page-item page-link ' }
-                        onClick={(page)=>setPage( IncrimentPage(page)) }
+                        onClick={()=>setPage( IncrimentPage(page)) }
                         >Previous</li>
-                        {pages.map((p)=>
-                        <li class="page-item page-link" onClick={setPage(p)}>{p}</li>
+                        {
+                        pages.map((p)=>
+                        <li class="page-item page-link" onClick={() =>setPage(p)}>{p}</li>
                         )
                         }
                         <li 
                         className ={page===pagesNum? 'page-item page-link disabled':'page-item page-link ' }
-                        onClick={(page)=>setPage(DisicrPage(page,pagesNum))}
+                        onClick={()=>setPage(DisicrPage(page,pagesNum))}
                         >Next</li>
                     </ul>
                 </nav>
