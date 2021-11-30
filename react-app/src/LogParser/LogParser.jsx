@@ -1,13 +1,9 @@
 import Button from "../Components/shared/button";
 import Navbar from '../Components/navbar/Navbar'
-import { useState } from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from 'react';
+import { createPages, DisicrPage, IncrimentPage } from "./page";
 export function LogParser()
 {
-    useEffect( ()=>{
-        console.log(new Date().getDate());
-    },[]);
-    let [log,useLog] = useState([]);
     let logs =[
         {'error':'warning','error_msg':'This is a warning'},
         {'error':'warning','error_msg':'This is a warning'},
@@ -15,6 +11,10 @@ export function LogParser()
         {'error':'warning','error_msg':'This is a warning'},
         {'error':'warning','error_msg':'This is a warning'},
     ];
+    let [log,setLog] = useState([]);
+    let [page,setPage] = useState(1);
+    let pagesNum = Math.ceil(logs.length/2);
+    let pages = createPages(pagesNum);
     let style={
     justifyContent: "center",
     alignItems: "center"
@@ -55,11 +55,18 @@ export function LogParser()
                     </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" style={style}>
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <li 
+                        className={page<=1? 'page-item page-link disabled':'page-item page-link ' }
+                        onClick={(page)=>setPage( IncrimentPage(page)) }
+                        >Previous</li>
+                        {pages.map((p)=>
+                        <li class="page-item page-link" onClick={setPage(p)}>{p}</li>
+                        )
+                        }
+                        <li 
+                        className ={page===pagesNum? 'page-item page-link disabled':'page-item page-link ' }
+                        onClick={(page)=>setPage(DisicrPage(page,pagesNum))}
+                        >Next</li>
                     </ul>
                 </nav>
                 </div>

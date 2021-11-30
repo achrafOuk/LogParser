@@ -3,7 +3,6 @@ import { allReducer} from './allReducer';
 import {reduxPersist,initState} from './ReduxPersist';
 //create Redux store
 let persistStore = initState();
-console.log('Non:',persistStore);
 let store = createStore(
   allReducer,
   persistStore,

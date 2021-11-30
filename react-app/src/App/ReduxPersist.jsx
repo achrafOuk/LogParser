@@ -1,8 +1,6 @@
 export function initState(){
     try{
         initState = localStorage.getItem('state');
-        console.log('init state....');
-        console.log('State:',JSON.parse(initState));
         if(initState === null) return undefined;
         return JSON.parse(initState);
     }
@@ -11,7 +9,6 @@ export function initState(){
     }
 }
 export function reduxPersist(_state){
-    console.log(_state);
     const state = JSON.stringify(_state);
     try{
         localStorage.setItem('state', state );
@@ -23,7 +20,6 @@ export function reduxPersist(_state){
 export function reduxRemove(){
 try{
         localStorage.removeItem('state');
-        console.log('Logout..........');
     }
     catch(err){
         console.log(err);

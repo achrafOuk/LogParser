@@ -5,10 +5,11 @@ import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
 import { createBrowserHistory } from 'history';
+import Msg from "../Components/shared/Msg";
 export default function Login(props) {
     let [user, letUser] = useState('');
     let [pwd, letPwd] = useState('');
-    let [msg, useMsg] = useState('');
+    let [msg, lesMsg] = useState('');
     let dispatch = useDispatch();
     const SubmitLogin = (e) =>{
         e.preventDefault();
@@ -26,6 +27,8 @@ export default function Login(props) {
             .then(response => { return response.json() }).catch(err => { return (err)} ) ;
             if(typeof(req.detail)!=="undefined" )
             {
+                lesMsg(req.detail);
+                letPwd('');
             }
             else{
                 dispatch(loginAction(user,req.access,req.refresh));
@@ -34,35 +37,47 @@ export default function Login(props) {
         }
         return senddata();
     }
+    function showError(msg){
+        if(msg){
+            return (
+                <Msg classe="alert alert-danger" msg={msg}/>
+            )
+            return;
+        }
+    }
     return (
         <>
             <Navbar/>
             <div className="container">
                 <div className="card o-hidden border-0 shadow-lg my-5">
+                    <Msg classe="alert alert-danger" msg={msg}/>
                     <h1>Login</h1>
-                    <div className="card-body p-0">
+                                        <div className="card-body p-0">
                         <div className="row justify-content-center">
                             <div className="col-lg-7">
                                 <div className="p-5">
                                     <div className="text-center"></div>
                                     <form  onSubmit={SubmitLogin} method="POST" class="user">
                                         <div class="form-group">
-                                            <input onChange={
+                                            <input 
+                                            onChange={
                                                     (e) => letUser(e.target.value)
                                                 }
-                                                type="text"
-                                                class="form-control form-control-user"
-                                                id="exampleFirstName"
-                                                placeholder="Username"/>
+                                            type="text"
+                                            class="form-control form-control-user"
+                                            id="exampleFirstName"
+                                            placeholder="Username"/>
                                         </div>
                                         <div class="form-group">
-                                            <input onChange={
+                                            <input 
+                                            onChange={
                                                     (e) => letPwd(e.target.value)
                                                 }
-                                                type="password"
-                                                class="form-control form-control-user"
-                                                id="password"
-                                                placeholder="Password"/>
+                                            value = {pwd}
+                                            type="password"
+                                            class="form-control form-control-user"
+                                            id="password"
+                                            placeholder="Password"/>
                                         </div>
                                         <Button text="submit" class="btn btn-primary btn-user btn-block"
                                             style={

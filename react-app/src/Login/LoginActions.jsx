@@ -9,4 +9,8 @@ export function loginAction(user,jwt,refresh){
         }
     }
 }
-
+export function LogoutAction(){
+    return{
+        type:'LOGOUT'
+    }
+}
