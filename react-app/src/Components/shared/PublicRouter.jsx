@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import React from "react";
 export default function PublicRouter({children,...rest}){
     let jwtToken = useSelector( (state) => state.login.jwt );
-    console.log(jwtToken);
+    console.log('jwt:'+jwtToken);
     return (
-        <Route {...rest} render={()=>{
-            return !jwtToken ? children : <Redirect to='/home' />
-        }}/>
+            !jwtToken ? <Route component={rest.component} {...rest.computedMatch} />
+            : <Redirect to='/home' />
     )
 }

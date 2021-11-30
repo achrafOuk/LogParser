@@ -20,3 +20,12 @@ export function reduxPersist(_state){
         console.log(err);
     }
 }
+export function reduxRemove(){
+try{
+        localStorage.removeItem('state');
+        console.log('Logout..........');
+    }
+    catch(err){
+        console.log(err);
+    }
+}

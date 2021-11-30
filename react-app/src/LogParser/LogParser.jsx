@@ -19,7 +19,6 @@ export function LogParser()
     justifyContent: "center",
     alignItems: "center"
     }
-    console.log(logs);
     return(
         <>
         <Navbar></Navbar>
