@@ -1,6 +1,6 @@
 import Button from "../Components/shared/button";
 import Navbar from '../Components/navbar/Navbar'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPages, DisicrPage, IncrimentPage } from "./page";
 export function LogParser()
 {
@@ -15,28 +15,69 @@ export function LogParser()
     let [page,setPage] = useState(1);
     let pagesNum = Math.ceil(logs.length/2);
     let pages = createPages(pagesNum);
+    let fileuploder = useRef();
+    let uploader = useRef();
     let style={
     justifyContent: "center",
     alignItems: "center"
     }
     useEffect(()=>{
-        console.log(log);
-        console.log('page',page);
         let start = 2*(page-1);
         let end = Math.min(start+2,logs.length);
-        console.log(start,end);
-        console.log(logs.slice(start,end));
         setLog(logs.slice(start,end));
     },[page]);
+    /*select text */
+    function fileUpload(){
+        fileuploder.current.click();
+    }
+    /* send the text into backend */
+    function file_selector(){
+        // get the txt file
+        let file = fileuploder.current.files[0];
+        // define reader
+        let reader = new FileReader();
+        //upload the file
+        reader.readAsDataURL(file);
+        reader.onload =(e)=>{
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(e.target.result),
+                headers: {"Content-type": "application/json; charset=UTF-8"}
+            };
+            let senddata = async () =>{
+            let req = await fetch('http://127.0.0.1:8000/api/fileupload/',options)
+            .then(response => { return response.json() }).catch(err => { return (err)} ) ;
+            }
+            senddata();
+        }
+        uploader.current.click();
+    }
     return(
         <>
-        <Navbar></Navbar>
+        <Navbar/>
         <div style={{    width: "90%",margin: "5%"}} class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Upload file</h6>
             </div>
             <div class="card-body">
-                <Button text="upload file" style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} />
+                <Button text="upload file" 
+                style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} 
+                click={ ()=> fileUpload()}
+                />
+                <form onSubmit={ (e) => { e.preventDefault(); }} method='POST' 
+                enctype="multipart/form-data"> 
+                <input type='file' 
+                    name="mfile" 
+                    ref={fileuploder}
+                    style={{display:"none"}}
+                    onChange={file_selector}
+                    accept=".txt" />
+                    <Button 
+                    type='submit'
+                    style={{display:"none"}}
+                    forwardRef={uploader}
+                    />
+                </form>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                         <thead>
@@ -44,7 +85,6 @@ export function LogParser()
                                 <th>Error type</th>
                                 <th>message</th>
                             </tr>
-                            
                         </thead>
                         { log.map( (msg)=>(
                             <tr>

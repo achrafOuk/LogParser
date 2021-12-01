@@ -3,8 +3,11 @@ export default function Button(props){
             <>
             <button 
             onClick={props.click}
+            onSubmit={props.submit}
             type={props.type} 
-            className={props.class} style={props.style}>{props.text}</button>
+            ref={props.forwardRef}
+            className={props.class} 
+            style={props.style}>{props.text}</button>
             </>
         );
 }

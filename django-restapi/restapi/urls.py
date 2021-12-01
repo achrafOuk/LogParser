@@ -16,8 +16,7 @@ urlpatterns = [
     #API doc
     path('project/docs/', include_docs_urls(title='LogParserAPI')),
     #get the schema of the API
-    path('projet/schema/', get_schema_view(
-
+    path('project/schema/', get_schema_view(
         title="LogParserAPI",
         description="log Parser API using Django",
         version="1.0.0"

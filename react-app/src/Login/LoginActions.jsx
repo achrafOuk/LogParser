@@ -9,6 +9,14 @@ export function loginAction(user,jwt,refresh){
         }
     }
 }
+export function RefrechAction(jwt){
+    return{
+        type:'REFRECH',
+        payload:{
+            'jwt':jwt,
+        }
+    }
+}
 export function LogoutAction(){
     return{
         type:'LOGOUT'

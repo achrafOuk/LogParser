@@ -52,7 +52,7 @@ export default function Login(props) {
                 <div className="card o-hidden border-0 shadow-lg my-5">
                     <Msg classe="alert alert-danger" msg={msg}/>
                     <h1>Login</h1>
-                                        <div className="card-body p-0">
+                        <div className="card-body p-0">
                         <div className="row justify-content-center">
                             <div className="col-lg-7">
                                 <div className="p-5">
