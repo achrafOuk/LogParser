@@ -37,14 +37,6 @@ export default function Login(props) {
         }
         return senddata();
     }
-    function showError(msg){
-        if(msg){
-            return (
-                <Msg classe="alert alert-danger" msg={msg}/>
-            )
-            return;
-        }
-    }
     return (
         <>
             <Navbar/>

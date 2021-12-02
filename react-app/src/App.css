@@ -44,3 +44,7 @@ button {
     padding: 0.75rem !important;
     border: none !important;
 }
+.disabled {
+    /* cursor: default; */
+    pointer-events: none;
+}

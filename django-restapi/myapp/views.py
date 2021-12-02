@@ -185,9 +185,10 @@ class FilesList(generics.ListCreateAPIView,FilesPermitionByUser):
 class FileUploadView(APIView):
     renderer_classes = [JSONRenderer]
     parser_classes = [MultiPartParser, FormParser]
-    #permission_classes = [IsAuthenticated]
     #load txt file
     def post(self, request, format=None):
+        print(list( request.data.items() ))
+        print('----xxx---')
         serializer = FileSerializer(data=request.data)
         #read the data from the file as bytes
         fileData=request.data['path'].read()
