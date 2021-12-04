@@ -5,7 +5,8 @@ import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
 import Msg from "../Components/shared/Msg";
-import axios from "axios";
+import { api } from "../App/connectAPI";
+import { setlogin } from "./setlogin";
 export default function Login(props) {
     //user
     let [user, letUser] = useState('');
@@ -23,12 +24,8 @@ export default function Login(props) {
             'username':user,
             'password':pwd
         };
-        //do login
         let senddata = async () =>{
-            let req = await axios.post('http://127.0.0.1:8000/api/login/', userInfo )
-            .then(response => { return response })
-            .catch(err => { return (err)} ) ;
-            // check if user enter valid data
+            let req = await setlogin(user,pwd);
             console.log(req);
             if( req.status===200 ){
                 dispatch(loginAction(user,req.data.access,req.data.refresh));

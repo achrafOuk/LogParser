@@ -1,22 +1,26 @@
 import { useEffect } from "react";
 import { Redirect, useHistory } from "react-router";
-export function Logout(){
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { api } from "../App/connectAPI";
+export const Logout = () => {
     const history = useHistory();
     history.push('/');
+    const jwtToken = useSelector( state =>state.login.jwt );
+    const refresh = {
+        'refresh':'Bearer '+ String(jwtToken)
+    }
     useEffect(()=>{
-        const options = {
-            method: 'POST',
-        };
         let senddata = async () =>{
-            let req = await fetch('http://127.0.0.1:8000/api/logout/',options)
-            .then(response => { console.log(response); return response.json() })
-            .catch(err =>  console.log('logout',err));
-            console.log(req);
+            let req = await api.post('/api/logout/',refresh)
+            .then(response => {  return response })
+            .catch(err =>  {return err} );
+            console.log(req.data);
             return req;
         }
-        let response = senddata();
+        senddata();
         //dispatch(LogoutAction());
         //reduxRemove();
     })
-    return( <Redirect to='/'/>)
+    return( <Redirect to='/home'/>)
 }
