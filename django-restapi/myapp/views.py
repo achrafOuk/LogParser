@@ -186,17 +186,22 @@ class FileUploadView(APIView):
     renderer_classes = [JSONRenderer]
     parser_classes = [MultiPartParser, FormParser]
     #load txt file
-    def post(self, request, format=None):
+    def post(self, request):
         print(list( request.data.items() ))
-        print('----xxx---')
-        serializer = FileSerializer(data=request.data)
-        #read the data from the file as bytes
-        fileData=request.data['path'].read()
-        request.data['size']='0'
-        request.data['user']=self.request.user.id
-        #convert bytes to string
-        fileContent = fileData.decode('utf-8')
         try:
+            fileData=request.data['path'].read()
+            print('file content:' , fileData)
+            #read the data from the file as bytes
+            #request.data['size']='0'
+            #request.data['user']=self.request.user.id
+            serializer = FileSerializer(data=request.data)
+            #read the data from the file as bytes
+            fileData=request.data['path'].read()
+            request.data['size']='0'
+            request.data['user']=self.request.user.id
+            serializer = FileSerializer(data=request.data)
+            #convert bytes to string
+            fileContent = fileData.decode('utf-8')
             if serializer.is_valid():
                 serializer.save()
                 #get the file id

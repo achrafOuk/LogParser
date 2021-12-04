@@ -1,4 +1,6 @@
+import { Logout } from "../../Logout/Logout";
 import Links from "./Links"
+
 export function DropDown(props){
     let isShow = props.isShow ? 'block':'none' ;
     return (
@@ -12,6 +14,7 @@ export function DropDown(props){
         {props.user}
         </div>
         <div class="dropdown-menu" style={{display:isShow}} aria-labelledby="navbarDropdown">
+        <p class="dropdown-item" >logout</p>
         <Links class ="dropdown-item" href='/logout' text='logout' />
         </div>
     </nav>

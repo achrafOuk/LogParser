@@ -3,6 +3,8 @@ import Navbar from '../Components/navbar/Navbar'
 import { useEffect, useRef, useState } from 'react';
 import { createPages, DisicrPage, IncrimentPage } from "./page";
 import Msg from "../Components/shared/Msg";
+import { useSelector } from "react-redux";
+import { SetRefrech } from "../refrech/setRefrech";
 export function LogParser()
 {
     let logs =[
@@ -17,6 +19,7 @@ export function LogParser()
     let pagesNum = Math.ceil(logs.length/2);
     let [page,setPage] = useState( pagesNum ? 1 :0);
     let [msg,setMsg] = useState();
+    let jwtToken = useSelector(state => state.login.jwt);
     // set number of elements in page
     //create an array that is range of pageNmum
     let pages = createPages(pagesNum);
@@ -42,32 +45,45 @@ export function LogParser()
     function file_selector(){
         // get the txt file
         let file = fileuploder.current.files[0];
-        // define reader
+        // define file reader
         let reader = new FileReader();
-        //upload the file
         reader.readAsDataURL(file);
-        console.log(file);
-        const formData = new FormData(); 
-        formData.append('file',file);
-        reader.onload =(e)=>{
+        //upload the file
+        reader.onload = (e)=>{
+            console.log((e.target));
             const options = {
                 method: 'POST',
-                body: formData,
+                body: {
+                    path:e.target.result,
+                    size:'0',
+                },
                 headers: {
-                    "Content-type": "multipart/form-data; boundary=frontier"
+                "Content-type": "multipart/form-data; boundary=frontier",
+                'Accept': 'application/json',
+                'Authorization': 'Bearer' +jwtToken
                 }
             };
+
+            console.log(typeof(options.body.path));
             let senddata = async () =>{
             let req = await fetch('http://127.0.0.1:8000/api/fileupload/',options)
-            .then(response => { return response.json() }).catch(err => { return (err)} ) ;
-            console.log(req);
-            if(req.detail){
-                setMsg(req.detail);
+                .then(response => { console.log( response ) ;return response.json() })
+                .catch(err => { console.log('err:',err);return (err)} ) ;
+                if(!req.ok){
+                    setMsg('An error has occure');
+                }
+                console.log('requ:',req);
             }
-        }
             senddata();
         }
+
+        //const formData = new FormData(); 
+        //formData.append('file',file);
+        //formData.append('size','0');
+        
         uploader.current.click();
+        fileuploder.current.value='';
+        //SetRefrech();
     }
     return(
         <>
@@ -80,7 +96,8 @@ export function LogParser()
                 <Msg classe="alert alert-danger" msg={msg}/>
                 <Button text="upload file" 
                 style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} 
-                click={ ()=> fileUpload()}
+                click={ ()=> fileUpload()
+                }
                 />
                 <form onSubmit={ (e) => { e.preventDefault(); }} method='POST' 
                 enctype="multipart/form-data"> 

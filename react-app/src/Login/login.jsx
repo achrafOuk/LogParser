@@ -1,41 +1,46 @@
 import React from "react";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { useDispatch } from "react-redux";
 import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
-import { createBrowserHistory } from 'history';
 import Msg from "../Components/shared/Msg";
+import axios from "axios";
 export default function Login(props) {
+    //user
     let [user, letUser] = useState('');
+    //password
     let [pwd, letPwd] = useState('');
+    // error msg show
     let [msg, lesMsg] = useState('');
     let dispatch = useDispatch();
+    //submit login
     const SubmitLogin = (e) =>{
+        //prevent refresh event
         e.preventDefault();
+        //get user login info
         let userInfo={
             'username':user,
             'password':pwd
         };
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(userInfo),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
-        };
+        //do login
         let senddata = async () =>{
-            let req = await fetch('http://127.0.0.1:8000/api/login/',options)
-            .then(response => { return response.json() }).catch(err => { return (err)} ) ;
-            if(typeof(req.detail)!=="undefined" )
-            {
-                lesMsg(req.detail);
-                letPwd('');
-            }
-            else{
-                dispatch(loginAction(user,req.access,req.refresh));
+            let req = await axios.post('http://127.0.0.1:8000/api/login/', userInfo )
+            .then(response => { return response })
+            .catch(err => { return (err)} ) ;
+            // check if user enter valid data
+            console.log(req);
+            if( req.status===200 ){
+                dispatch(loginAction(user,req.data.access,req.data.refresh));
                 props.history.push('/home');
             }
+            // show error msg otherwise
+            else {
+                    lesMsg('Username or login are wrong');
+                    letPwd('');
+            }
         }
-        return senddata();
+        senddata();
     }
     return (
         <>
