@@ -26,7 +26,6 @@ export default function Login(props) {
         };
         let senddata = async () =>{
             let req = await setlogin(user,pwd);
-            console.log(req);
             if( req.status===200 ){
                 dispatch(loginAction(user,req.data.access,req.data.refresh));
                 props.history.push('/home');

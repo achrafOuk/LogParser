@@ -1,4 +1,4 @@
-import { api } from "../App/connectAPI";
+import api from "../App/connectAPI";
 export const setlogin = (user,pwd) =>{
         let userInfo={
             'username':user,
@@ -10,7 +10,6 @@ export const setlogin = (user,pwd) =>{
             .catch(err => { return (err)} ) ;
             // check if user enter valid data
             return (req);
-            
         }
         return senddata();
 }

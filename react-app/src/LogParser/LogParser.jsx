@@ -5,6 +5,7 @@ import { createPages, DisicrPage, IncrimentPage } from "./page";
 import Msg from "../Components/shared/Msg";
 import { useSelector } from "react-redux";
 import { SetRefrech } from "../refrech/setRefrech";
+import api from "../App/connectAPI";
 export function LogParser()
 {
     let logs =[
@@ -50,7 +51,6 @@ export function LogParser()
         reader.readAsDataURL(file);
         //upload the file
         reader.onload = (e)=>{
-            console.log((e.target));
             const options = {
                 method: 'POST',
                 body: {
@@ -63,27 +63,20 @@ export function LogParser()
                 'Authorization': 'Bearer' +jwtToken
                 }
             };
-
-            console.log(typeof(options.body.path));
             let senddata = async () =>{
-            let req = await fetch('http://127.0.0.1:8000/api/fileupload/',options)
-                .then(response => { console.log( response ) ;return response.json() })
-                .catch(err => { console.log('err:',err);return (err)} ) ;
+                let req = await api.post('/api/fileupload/',options.body)
+                .then(response => { return response })
+                .catch(err => { return (err)} ) ;
                 if(!req.ok){
                     setMsg('An error has occure');
                 }
                 console.log('requ:',req);
             }
+            
             senddata();
         }
-
-        //const formData = new FormData(); 
-        //formData.append('file',file);
-        //formData.append('size','0');
-        
         uploader.current.click();
         fileuploder.current.value='';
-        //SetRefrech();
     }
     return(
         <>

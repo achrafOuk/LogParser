@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Redirect, useHistory } from "react-router";
-import axios from "axios";
 import { useSelector } from "react-redux";
-import { api } from "../App/connectAPI";
+import api from "../App/connectAPI";
 export const Logout = () => {
     const history = useHistory();
     history.push('/');
