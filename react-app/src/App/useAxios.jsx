@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 function getJWT(){
     let jwtToken = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')).login :null;
     return jwtToken;
-
 }
 export default function useAxios(){
     // get jwt token from local storage
@@ -37,17 +36,20 @@ export default function useAxios(){
         // check if jwt is expired
         const isExpired = dayjs.unix(decodeJwt.exp).diff(dayjs()) < 1;
         // return the request without refreshing the jwt token
-        //if(!isExpired) return req;
+        if(!isExpired) return req;
         // refresh the request JWT token
         const refrech_token = await axios.post('http://localhost:8000/api/login/refrech/',
             {refresh:getJWT()?.refresh}
         );
         //set the new jwt token
-        console.log(localStorage.getItem('state'));
-        console.log(typeof(localStorage.getItem('state')));
+        //get the jwt tokens
         let getTokens = JSON.parse(localStorage.getItem('state')).login;
-        getTokens.jwt =  refrech_token.data;
-        localStorage.setItem( 'state', JSON.stringify(refrech_token) );
+        // set the new refreshed jwt token
+        getTokens.jwt =  refrech_token.data.access;
+        getTokens = {login:getTokens};
+        // store the new data inside the localstorage
+        localStorage.setItem( 'state', JSON.stringify(getTokens) );
+        //refresh the jwt in redux store
         dispatch(RefrechAction(refrech_token.data.access));
     }
     return req;

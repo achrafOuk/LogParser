@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPages, DisicrPage, IncrimentPage } from "./page";
 import Msg from "../Components/shared/Msg";
 import { useSelector } from "react-redux";
-//import api from "../App/connectAPI";
 import useAxios from "../App/useAxios";
- 
 export function LogParser()
 {
     let logs =[
@@ -49,7 +47,7 @@ export function LogParser()
         // get the txt file
         let file = fileuploder.current.files[0];
         let reader = new FileReader();
-        reader.readAsDataURL(file);
+        reader.readAsText(file);
         //upload the file
         reader.onload = (e)=>{
             let fileUploaded =  e.target.result;
