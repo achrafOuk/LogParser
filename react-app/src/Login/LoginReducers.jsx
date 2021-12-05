@@ -12,10 +12,9 @@ export function loginReducer(state=initLogin,action){
             let tokenRefrech =action.payload.refresh;
             return {...state,user:user,jwt:access,refresh:tokenRefrech};
         case 'REFRECH':
-            return {...state,jwt:action.jwt};
+            return {...state,jwt:action.payload.jwt};
         case 'LOGOUT':
             return {...state,login:undefined};
-
         default:
             return {...state};
     }

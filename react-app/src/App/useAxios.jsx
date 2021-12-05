@@ -3,6 +3,7 @@ import { RefrechAction } from "../Login/LoginActions";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs';
+import { useSelector } from "react-redux";
 /** 
  * Refresh jwt token
  * */ 
@@ -16,6 +17,7 @@ export default function useAxios(){
     let dispatch = useDispatch();
     let jwtToken = getJWT()?.jwt;
     let api ;
+    let jwt =useSelector(state => state.login.jwt);
     if( jwtToken == null ){
     api = axios.create( { baseURL:'http://localhost:8000' });
     }
@@ -35,7 +37,7 @@ export default function useAxios(){
         // check if jwt is expired
         const isExpired = dayjs.unix(decodeJwt.exp).diff(dayjs()) < 1;
         // return the request without refreshing the jwt token
-        if(!isExpired) return req;
+        //if(!isExpired) return req;
         // refresh the request JWT token
         const refrech_token = await axios.post('http://localhost:8000/api/login/refrech/',
             {refresh:getJWT()?.refresh}
@@ -46,7 +48,7 @@ export default function useAxios(){
         let getTokens = JSON.parse(localStorage.getItem('state')).login;
         getTokens.jwt =  refrech_token.data;
         localStorage.setItem( 'state', JSON.stringify(refrech_token) );
-        dispatch(RefrechAction(refrech_token.data));
+        dispatch(RefrechAction(refrech_token.data.access));
     }
     return req;
     });

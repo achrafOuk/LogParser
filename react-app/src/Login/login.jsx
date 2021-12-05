@@ -7,6 +7,7 @@ import { loginAction } from "./LoginActions";
 import Msg from "../Components/shared/Msg";
 import { api } from "../App/connectAPI";
 import { setlogin } from "./setlogin";
+import { useSelector } from "react-redux";
 export default function Login(props) {
     //user
     let [user, letUser] = useState('');
@@ -15,6 +16,9 @@ export default function Login(props) {
     // error msg show
     let [msg, lesMsg] = useState('');
     let dispatch = useDispatch();
+    let jwt = useSelector(state => state.login);
+    let myuser = useSelector(state => state.login.user);
+    console.log('jwt token in login:',jwt,myuser);
     //submit login
     const SubmitLogin = (e) =>{
         //prevent refresh event

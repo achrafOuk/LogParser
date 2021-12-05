@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPages, DisicrPage, IncrimentPage } from "./page";
 import Msg from "../Components/shared/Msg";
 import { useSelector } from "react-redux";
-import { SetRefrech } from "../refrech/setRefrech";
-import api from "../App/connectAPI";
+//import api from "../App/connectAPI";
 import useAxios from "../App/useAxios";
  
 export function LogParser()
@@ -21,7 +20,7 @@ export function LogParser()
     let [log,setLog] = useState([]);
     let pagesNum = Math.ceil(logs.length/2);
     let [page,setPage] = useState( pagesNum ? 1 :0);
-    let api1 = useAxios();
+    let api = useAxios();
     let [msg,setMsg] = useState();
     let jwtToken = useSelector(state => state.login.jwt);
     // set number of elements in page
@@ -72,7 +71,7 @@ export function LogParser()
                 }
                 console.log('requ:',req);
             }
-            return senddata();
+            senddata();
         }
         uploader.current.click();
         fileuploder.current.value='';
