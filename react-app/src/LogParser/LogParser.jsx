@@ -6,6 +6,8 @@ import Msg from "../Components/shared/Msg";
 import { useSelector } from "react-redux";
 import { SetRefrech } from "../refrech/setRefrech";
 import api from "../App/connectAPI";
+import useAxios from "../App/useAxios";
+ 
 export function LogParser()
 {
     let logs =[
@@ -19,6 +21,7 @@ export function LogParser()
     let [log,setLog] = useState([]);
     let pagesNum = Math.ceil(logs.length/2);
     let [page,setPage] = useState( pagesNum ? 1 :0);
+    let api1 = useAxios();
     let [msg,setMsg] = useState();
     let jwtToken = useSelector(state => state.login.jwt);
     // set number of elements in page
@@ -46,25 +49,22 @@ export function LogParser()
     function file_selector(){
         // get the txt file
         let file = fileuploder.current.files[0];
-        // define file reader
         let reader = new FileReader();
         reader.readAsDataURL(file);
         //upload the file
         reader.onload = (e)=>{
-            const options = {
-                method: 'POST',
-                body: {
-                    path:e.target.result,
-                    size:'0',
-                },
-                headers: {
-                "Content-type": "multipart/form-data; boundary=frontier",
-                'Accept': 'application/json',
-                'Authorization': 'Bearer' +jwtToken
-                }
+            let fileUploaded =  e.target.result;
+            let uploader ={
+                'path':fileUploaded,
+                'size':'0'
             };
+            console.log(uploader);
             let senddata = async () =>{
-                let req = await api.post('/api/fileupload/',options.body)
+                let req = await api.post('/api/fileupload/',uploader,{
+                    headers:{
+                    "Content-type": "multipart/form-data; boundary=frontier",
+                    }
+                })
                 .then(response => { return response })
                 .catch(err => { return (err)} ) ;
                 if(!req.ok){
@@ -72,8 +72,7 @@ export function LogParser()
                 }
                 console.log('requ:',req);
             }
-            
-            senddata();
+            return senddata();
         }
         uploader.current.click();
         fileuploder.current.value='';
@@ -92,8 +91,7 @@ export function LogParser()
                 click={ ()=> fileUpload()
                 }
                 />
-                <form onSubmit={ (e) => { e.preventDefault(); }} method='POST' 
-                enctype="multipart/form-data"> 
+                <form onSubmit={ (e) => { e.preventDefault(); }} method='POST' enctype="application/x-www-form-urlencoded"> 
                 <input type='file' 
                     name="mfile" 
                     ref={fileuploder}

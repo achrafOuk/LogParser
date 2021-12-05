@@ -1,24 +1,31 @@
+import { useDispatch } from "react-redux";
+import { RefrechAction } from "../Login/LoginActions";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs';
+/** 
+ * Refresh jwt token
+ * */ 
 function getJWT(){
     let jwtToken = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')).login :null;
     return jwtToken;
+
 }
-// get jwt token from local storage
-let jwtToken = getJWT()?.jwt;
-let api ;
-if( jwtToken == null ){
-  api = axios.create( { baseURL:'http://localhost:8000' });
-}
-else{
-    api = axios.create( { 
-        baseURL:'http://localhost:8000', 
-        headers:{ Authorization: `Bearer ${jwtToken}`}
-    });
-}
-// refresh the jwt token
-api.interceptors.request.use( async req =>{
+export default function useAxios(){
+    // get jwt token from local storage
+    let dispatch = useDispatch();
+    let jwtToken = getJWT()?.jwt;
+    let api ;
+    if( jwtToken == null ){
+    api = axios.create( { baseURL:'http://localhost:8000' });
+    }
+    else{
+        api = axios.create( { 
+            baseURL:'http://localhost:8000', 
+            headers:{ Authorization: `Bearer ${jwtToken}`}
+        });
+    }
+    api.interceptors.request.use( async req =>{
     let jwtToken = getJWT()?.jwt;
     if(jwtToken != null){
         //decode the jwt 
@@ -39,7 +46,9 @@ api.interceptors.request.use( async req =>{
         let getTokens = JSON.parse(localStorage.getItem('state')).login;
         getTokens.jwt =  refrech_token.data;
         localStorage.setItem( 'state', JSON.stringify(refrech_token) );
+        dispatch(RefrechAction(refrech_token.data));
     }
     return req;
-});
-export default api;
+    });
+    return api;
+}
