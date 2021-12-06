@@ -191,9 +191,6 @@ class FileUploadView(APIView):
         try:
             fileData=request.data['path'].read()
             print('file content:' , fileData)
-            #read the data from the file as bytes
-            #request.data['size']='0'
-            #request.data['user']=self.request.user.id
             serializer = FileSerializer(data=request.data)
             #read the data from the file as bytes
             fileData=request.data['path'].read()

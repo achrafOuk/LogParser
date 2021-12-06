@@ -44,35 +44,36 @@ export function LogParser()
     }
     /* send the text into backend */
     function file_selector(){
+        
         // get the txt file
         let file = fileuploder.current.files[0];
-        let reader = new FileReader();
-        reader.readAsText(file);
-        //upload the file
-        reader.onload = (e)=>{
-            let fileUploaded =  e.target.result;
-            let uploader ={
-                'path':fileUploaded,
-                'size':'0'
-            };
-            console.log(uploader);
-            let senddata = async () =>{
-                let req = await api.post('/api/fileupload/',uploader,{
-                    headers:{
-                    "Content-type": "multipart/form-data; boundary=frontier",
-                    }
-                })
-                .then(response => { return response })
-                .catch(err => { return (err)} ) ;
-                if(!req.ok){
-                    setMsg('An error has occure');
+        // initialite form data 
+        var formdata = new FormData();
+        console.log(file);
+        formdata.append("path", file, "/C:/Users/Achraf/Desktop/text.txt");
+        formdata.append("size", "'0'");
+        let senddata = async () =>{
+            let req = await api.post('/api/fileupload/',formdata,{
+                headers:{
+                "Content-type": "multipart/form-data; boundary=frontier",
                 }
-                console.log('requ:',req);
+            })
+            .then(response => { return response })
+            .catch(err => { return (err)} ) ;
+            if(!req.ok){
+                setMsg('An error has occure');
             }
-            senddata();
+            else{
+                setMsg('The file is send');
+
+            }
+            console.log('requ:',req.data);
         }
+        senddata();
         uploader.current.click();
         fileuploder.current.value='';
+    }
+    function filelog(id){
     }
     return(
         <>
@@ -95,7 +96,7 @@ export function LogParser()
                     style={{display:"none"}}
                     onChange={file_selector}
                     multiple='false'
-                    accept=".txt" />
+                    accept=".log" />
                     <Button 
                     type='submit'
                     style={{display:"none"}}
