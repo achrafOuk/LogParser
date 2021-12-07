@@ -4,6 +4,8 @@ import rest_framework
 urlpatterns = [
     #register of messages of log list
     path('register/', RegisterList.as_view()),
+    #register of messages of log list
+    path('register/<int:id>', RegisterByFileid.as_view()),
     #upload new file
     path('fileupload/', FileUploadView.as_view()),
     #user paths

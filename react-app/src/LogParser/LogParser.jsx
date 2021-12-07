@@ -32,12 +32,14 @@ export function LogParser()
     justifyContent: "center",
     alignItems: "center"
     }
+    filelog(25);
     //slice the elements of logs by current page
     useEffect(()=>{
         let start = 2*(page-1);
         let end = Math.min(start+2,logs.length);
         setLog(logs.slice(start,end));
     },[page]);
+
     /*select text */
     function fileUpload(){
         fileuploder.current.click();
@@ -51,7 +53,7 @@ export function LogParser()
         var formdata = new FormData();
         console.log(file);
         formdata.append("path", file, "/C:/Users/Achraf/Desktop/text.txt");
-        formdata.append("size", "'0'");
+        formdata.append("size", '0');
         let senddata = async () =>{
             let req = await api.post('/api/fileupload/',formdata,{
                 headers:{
@@ -65,15 +67,29 @@ export function LogParser()
             }
             else{
                 setMsg('The file is send');
-
             }
             console.log('requ:',req.data);
+            filelog(req.data?.id);
         }
         senddata();
         uploader.current.click();
         fileuploder.current.value='';
     }
     function filelog(id){
+    let senddata = async () =>{
+        let req = await api.get('/api/register/1')
+        .then(response => { return response })
+        .catch(err => { return (err)} ) ;
+        if(!req.ok){
+            setMsg('An error has occure');
+        }
+        else{
+            setMsg('The file is send');
+
+        }
+        console.log('Reck:',req.data);
+    }
+    senddata();
     }
     return(
         <>

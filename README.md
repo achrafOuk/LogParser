@@ -16,7 +16,7 @@ You can change the db settings in restapi/settings.py
 ### To create the database automaticlly do:
 ```
 cd LogParser/django-restapi
-python manage.py makemigration
+python manage.py makemigrations
 python manage.py migrate
 ```
 ## running the server
@@ -28,6 +28,14 @@ python manage.py runserver
 ## running the server
 ```
 cd LogParser/frontend
+```
+### Use npm
+```
+npm install
 npm start
 ```
-
+### Use yarn
+```
+yarn install
+yarn start
+```

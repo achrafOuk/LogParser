@@ -1,5 +1,6 @@
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import query
 from django.http import request
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -187,11 +188,7 @@ class FileUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     #load txt file
     def post(self, request):
-        print(list( request.data.items() ))
         try:
-            fileData=request.data['path'].read()
-            print('file content:' , fileData)
-            serializer = FileSerializer(data=request.data)
             #read the data from the file as bytes
             fileData=request.data['path'].read()
             request.data['size']='0'
@@ -242,15 +239,33 @@ class FileUploadView(APIView):
             return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
 class RegisterList(generics.ListCreateAPIView,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin):
     renderer_classes = [JSONRenderer]
-    permission_classes = [IsAuthenticated,IsAdminUser]
+    permission_classes = [IsAuthenticated]
     queryset = Register.objects.all()
     serializer_class = RegisterSerializer
-    lookup_field="id"
+    lookup_field="file"
     def get(self,request,id=None):
-        if id:
-            return self.retrieve(request)
-        else:
-            return self.list(request)
+        try:
+            if id:
+                return self.get(request)
+            else:
+                return self.list(request)
+        except Exception as e:
+            return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+class RegisterByFileid(APIView):
+    renderer_classes = [JSONRenderer]
+    permission_classes = [AllowAny]
+    queryset = Register.objects.all()
+    serializer_class = RegisterSerializer
+    def get(self, request, id, format=None):
+        try:
+            #regiser = Register.objects.filter(file__file_id=id)
+            regiser = Register.objects.all()
+            serializer = RegisterSerializer(regiser,many=True)
+            #return json object holding all the data
+            return JsonResponse(serializer.data,safe=False)
+        except Exception as e:
+            return Response({"error:":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 class RegisterByFileId(APIView):
     renderer_classes = [JSONRenderer]
     def get(self,request,pk,format=None):

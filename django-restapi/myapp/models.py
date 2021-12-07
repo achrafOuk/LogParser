@@ -34,13 +34,13 @@ class File(models.Model):
     user= models.ForeignKey(User,on_delete=models.CASCADE)
     size = models.TextField()
     class Meta:
-        db_table = 'files'
+        db_table = 'File'
 #register name
 class Register(models.Model):
     register_id = models.AutoField(primary_key=True)
-    file= models.ForeignKey(File,on_delete=models.CASCADE)
+    file= models.ForeignKey(File,on_delete=models.CASCADE, related_name="file")
     message= models.TextField()
     messages_Type= models.TextField()
     date= models.DateTimeField(default=timezone.now)
     class Meta:
-        db_table = 'File'
+        db_table = 'Register'

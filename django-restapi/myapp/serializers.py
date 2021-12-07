@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         #exclude fields
         exclude = ['first_name','last_name','password','date_joined','is_active','groups', "user_permissions"]
 class RegisterSerializer(serializers.ModelSerializer):
-    file = FileSerializer(source='file_id',many=True)
+    file = FileSerializer()
     class Meta:
         model = Register
         fields = '__all__'
