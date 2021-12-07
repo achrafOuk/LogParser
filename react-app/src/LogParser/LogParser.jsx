@@ -7,20 +7,21 @@ import { useSelector } from "react-redux";
 import useAxios from "../App/useAxios";
 export function LogParser()
 {
-    let logs =[
-        {'error':'warning1','error_msg':'This is a warning'},
-        {'error':'warning2','error_msg':'This is a warning'},
-        {'error':'warning3','error_msg':'This is a warning'},
-        {'error':'warning4','error_msg':'This is a warning'},
-        {'error':'warning5','error_msg':'This is a warning'},
+    let Fakelogs =[
+        {'message':'warning1','messages_Type':'This is a warning'},
+        {'message':'warning2','messages_Type':'This is a warning'},
+        {'message':'warning3','messages_Type':'This is a warning'},
+        {'message':'warning4','messages_Type':'This is a warning'},
+        {'message':'warning5','messages_Type':'This is a warning'},
     ];
     //logs 
+    let [logs,setLogs] = useState([]);
     let [log,setLog] = useState([]);
-    let pagesNum = Math.ceil(logs.length/2);
+    let pagesNum = Math.ceil(logs.length/160);
     let [page,setPage] = useState( pagesNum ? 1 :0);
     let api = useAxios();
     let [msg,setMsg] = useState();
-    let jwtToken = useSelector(state => state.login.jwt);
+    let jwtToken = useSelector( state => state.login.jwt );
     // set number of elements in page
     //create an array that is range of pageNmum
     let pages = createPages(pagesNum);
@@ -30,13 +31,13 @@ export function LogParser()
     let uploader = useRef();
     let style={
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    flexFlow:'wrap'
     }
-    filelog(25);
     //slice the elements of logs by current page
     useEffect(()=>{
         let start = 2*(page-1);
-        let end = Math.min(start+2,logs.length);
+        let end = Math.min(start+160,logs.length);
         setLog(logs.slice(start,end));
     },[page]);
 
@@ -44,15 +45,15 @@ export function LogParser()
     function fileUpload(){
         fileuploder.current.click();
     }
-    /* send the text into backend */
+    /* send the log into backend */
     function file_selector(){
-        
         // get the txt file
         let file = fileuploder.current.files[0];
         // initialite form data 
         var formdata = new FormData();
-        console.log(file);
+        //add the file
         formdata.append("path", file, "/C:/Users/Achraf/Desktop/text.txt");
+        //add the size
         formdata.append("size", '0');
         let senddata = async () =>{
             let req = await api.post('/api/fileupload/',formdata,{
@@ -62,34 +63,45 @@ export function LogParser()
             })
             .then(response => { return response })
             .catch(err => { return (err)} ) ;
-            if(!req.ok){
+
+            console.log(req.data?.statusText);
+            
+            console.log('requ:',req.data);
+            if(req.data?.statusText==='OK'){
                 setMsg('An error has occure');
             }
             else{
                 setMsg('The file is send');
+                filelog(req.data?.file_id);
             }
-            console.log('requ:',req.data);
-            filelog(req.data?.id);
+            // get the logs register
+            
         }
         senddata();
         uploader.current.click();
         fileuploder.current.value='';
     }
+    // get all the register of the uploaded file
     function filelog(id){
-    let senddata = async () =>{
-        let req = await api.get('/api/register/1')
-        .then(response => { return response })
-        .catch(err => { return (err)} ) ;
-        if(!req.ok){
-            setMsg('An error has occure');
+        console.log('fetching the data....');
+        let senddata = async () =>{
+            let req = await api.get(`/api/register/${id}`)
+            .then(response => { return response })
+            .catch(err => { return (err)} ) ;
+            if(req.data?.statusText!=='OK'){
+                setMsg('Can not error the logs of the file');
+            }
+            else{
+                setMsg('The file is send');
+            }
+            console.log('Reck:',req.data);
+            if(req.data){
+                setLogs(req.data);
+                console.log(logs);
+                console.log(logs?.length);
+            }
         }
-        else{
-            setMsg('The file is send');
-
-        }
-        console.log('Reck:',req.data);
-    }
-    senddata();
+        senddata();
     }
     return(
         <>
@@ -128,9 +140,9 @@ export function LogParser()
                             </tr>
                         </thead>
                         { log.map( (msg)=>(
-                            <tr>
-                                <th>{msg.error}</th>
-                                <th>{msg.error_msg}</th>
+                            <tr >
+                                <td>{msg.messages_Type.toLowerCase()}</td>
+                                <td>{msg.message}</td>
                             </tr>
                             ))
                         }
