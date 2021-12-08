@@ -38,9 +38,11 @@ export function LogParser(props)
     }
     //slice the elements of logs by current page
     useEffect(()=>{
-        let start = 2*(page-1);
+        let start = elementBypage*(page-1);
         let end = Math.min(start+elementBypage,logs.length);
         setLog(logs.slice(start,end));
+        console.log(start)
+        console.log(end)
     },[page,logs]);
     /*select text */
     function fileUpload(){
@@ -138,7 +140,7 @@ export function LogParser(props)
                         </thead>
                         { log.map( (msg)=>(
                             <tr >
-                                <td>{msg.messages_Type.toLowerCase()}</td>
+                                <td>{ msg.messages_Type }</td>
                                 <td>{msg.message}</td>
                             </tr>
                             ))

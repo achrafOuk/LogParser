@@ -31,7 +31,6 @@ class RegisterNewUser(APIView):
     def post(self,request):
         #serialized data
         userData = CustomUserSerializer(data=request.data)
-        print(request.data)
         #check if username and email does not exists
         users = User.objects.all().values()
         msg = {""} 
@@ -278,20 +277,3 @@ class RegisterByFileId(APIView):
             raise status.HTTP_404_NOT_FOUND
         serializer = FileSerializer(file)
         return Response(serializer.data)
-class RegisterSearchByFileId(generics.ListAPIView):
-    renderer_classes = [JSONRenderer]
-    serializer_class = RegisterSerializer
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
-        file_id =self.kwargs.get('pk')
-        dicte={}
-        liste=[]
-        register = File.objects.filter(file_id=file_id)
-        for reg in register :
-            print(reg['file_id'])
-        print(register)
-        return None
-        return register
