@@ -14,7 +14,7 @@ export function loginReducer(state=initLogin,action){
         case 'REFRECH':
             return {...state,jwt:action.payload.jwt};
         case 'LOGOUT':
-            return {...state,jwt:undefined,refresh:undefined};
+            return {...state,jwt:undefined,refresh:undefined,user:undefined};
         default:
             return {...state};
     }

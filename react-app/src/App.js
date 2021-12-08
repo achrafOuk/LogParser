@@ -9,6 +9,7 @@ import AuthRouter from './Components/shared/AuthRouter';
 import PublicRouter from './Components/shared/PublicRouter';
 import { useHistory } from 'react-router-dom';
 import { Logout } from './Logout/Logout';
+import Footer from './footer/Footer';
 function App() {
   const history = useHistory();
   return (
@@ -22,6 +23,7 @@ function App() {
         <PublicRouter exact path='/register' component = {Register} />
         <Route path="*" component = {error404} />
       </Switch>
+      <Footer></Footer>
     </Router>
   </div>
   );
