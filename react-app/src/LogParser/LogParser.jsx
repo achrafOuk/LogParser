@@ -94,11 +94,8 @@ export function LogParser()
             else{
                 setMsg('The file is send');
             }
-            console.log('Reck:',req.data);
             if(req.data){
                 setLogs(req.data);
-                console.log(logs);
-                console.log(logs?.length);
             }
         }
         senddata();
@@ -111,7 +108,7 @@ export function LogParser()
                 <h6 class="m-0 font-weight-bold text-primary">Upload file</h6>
             </div>
             <div class="card-body">
-                <Msg classe="alert alert-danger" msg={msg}/>
+                <Msg style={{margin:"5% auto",width:"95%"}} classe="alert alert-danger" msg={msg}/>
                 <Button text="upload file" 
                 style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} 
                 click={ ()=> fileUpload()

@@ -5,9 +5,9 @@ import Navbar from "../Components/navbar/Navbar";
 import Button from "../Components/shared/button";
 import { loginAction } from "./LoginActions";
 import Msg from "../Components/shared/Msg";
-import { api } from "../App/connectAPI";
 import { setlogin } from "./setlogin";
 import { useSelector } from "react-redux";
+import Links from '../Components/navbar/Links';
 export default function Login(props) {
     //user
     let [user, letUser] = useState('');
@@ -23,11 +23,6 @@ export default function Login(props) {
     const SubmitLogin = (e) =>{
         //prevent refresh event
         e.preventDefault();
-        //get user login info
-        let userInfo={
-            'username':user,
-            'password':pwd
-        };
         let senddata = async () =>{
             let req = await setlogin(user,pwd);
             if( req.status===200 ){
@@ -36,7 +31,7 @@ export default function Login(props) {
             }
             // show error msg otherwise
             else {
-                    lesMsg('Username or login are wrong');
+                    lesMsg({type:400,msg:'Username or login are wrong'});
                     letPwd('');
             }
         }
@@ -82,6 +77,7 @@ export default function Login(props) {
                                             }/>
                                     </form>
                                     <hr/>
+                                    <Links text="If you do not have account ,singup" href='/register'/>
                                 </div>
                             </div>
                         </div>

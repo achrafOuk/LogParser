@@ -46,22 +46,3 @@ api.interceptors.request.use( async req =>{
     return req;
 });
 export default api;
-/*
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM4NTQzNDc5LCJqdGkiOiJkNTAwZjhmMDE0ZTE0MzZkYTdjOGRkNjI4OGYxMGFlNiIsInVzZXJfaWQiOjF9.KeQ5j8etAl2Q-K3ng9QLuTrg8gf4nN2ZjRKjOlD-vzI");
-var formdata = new FormData();
-formdata.append("path", fileInput.files[0], "/C:/Users/Achraf/Desktop/text.txt");
-formdata.append("size", "'0'");
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: formdata,
-  redirect: 'follow'
-};
-
-fetch("http://127.0.0.1:8000/api/fileupload/", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-*/
