@@ -5,7 +5,7 @@ import { createPages, DisicrPage, IncrimentPage } from "./page";
 import Msg from "../Components/shared/Msg";
 import { useSelector } from "react-redux";
 import useAxios from "../App/useAxios";
-export function LogParser()
+export function LogParser(props)
 {
     let Fakelogs =[
         {'message':'warning1','messages_Type':'This is a warning'},
@@ -102,7 +102,7 @@ export function LogParser()
     }
     return(
         <>
-        <Navbar/>
+        <Navbar history={props.history} />
         <div style={{ width: "90%",margin: "5%"}} class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Upload file</h6>

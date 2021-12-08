@@ -1,11 +1,5 @@
 import { useState } from "react";
 import Button from "./button";
-/*'
-<button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-*/
 export default function Msg(props){
     let [show,setShow] = useState(true)
     let hideMsg = () =>{

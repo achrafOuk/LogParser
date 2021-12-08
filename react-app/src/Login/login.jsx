@@ -18,7 +18,6 @@ export default function Login(props) {
     let dispatch = useDispatch();
     let jwt = useSelector(state => state.login);
     let myuser = useSelector(state => state.login.user);
-    console.log('jwt token in login:',jwt,myuser);
     //submit login
     const SubmitLogin = (e) =>{
         //prevent refresh event

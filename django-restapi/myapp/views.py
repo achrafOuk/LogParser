@@ -234,12 +234,9 @@ class FileUploadView(APIView):
                     register.save()
                 log = splitMessages(fileContent,msgType='WARN')
                 for msg in log:
-                    register = Register(file=fileId,message=msg,messages_Type ="FATAL ERROR")
+                    register = Register(file=fileId,message=msg,messages_Type ="WARN")
                     register.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-
-                return Response(serializer.data, status=status.HTTP_200_OK)
-
             else:
                 return Response({"error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
