@@ -232,7 +232,14 @@ class FileUploadView(APIView):
                 for msg in log:
                     register = Register(file=fileId,message=msg,messages_Type ="FATAL ERROR")
                     register.save()
+                log = splitMessages(fileContent,msgType='WARN')
+                for msg in log:
+                    register = Register(file=fileId,message=msg,messages_Type ="FATAL ERROR")
+                    register.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
+
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
             else:
                 return Response({"error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -258,8 +265,7 @@ class RegisterByFileid(APIView):
     serializer_class = RegisterSerializer
     def get(self, request, id, format=None):
         try:
-            #regiser = Register.objects.filter(file__file_id=id)
-            regiser = Register.objects.all()
+            regiser = Register.objects.filter(file__file_id=id)
             serializer = RegisterSerializer(regiser,many=True)
             #return json object holding all the data
             return JsonResponse(serializer.data,safe=False)

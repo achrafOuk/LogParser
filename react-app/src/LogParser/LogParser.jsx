@@ -17,8 +17,10 @@ export function LogParser()
     //logs 
     let [logs,setLogs] = useState([]);
     let [log,setLog] = useState([]);
-    let pagesNum = Math.ceil(logs.length/160);
-    let [page,setPage] = useState( pagesNum ? 1 :0);
+    let elementBypage = logs.length < 120 ? 10 :30;
+    elementBypage = logs.length > 120 ? 33 : 30 ;
+    let pagesNum = Math.ceil(logs.length/elementBypage);
+    let [page,setPage] = useState(1);
     let api = useAxios();
     let [msg,setMsg] = useState();
     let jwtToken = useSelector( state => state.login.jwt );
@@ -37,10 +39,9 @@ export function LogParser()
     //slice the elements of logs by current page
     useEffect(()=>{
         let start = 2*(page-1);
-        let end = Math.min(start+160,logs.length);
+        let end = Math.min(start+elementBypage,logs.length);
         setLog(logs.slice(start,end));
-    },[page]);
-
+    },[page,logs]);
     /*select text */
     function fileUpload(){
         fileuploder.current.click();
@@ -63,16 +64,14 @@ export function LogParser()
             })
             .then(response => { return response })
             .catch(err => { return (err)} ) ;
-
-            console.log(req.data?.statusText);
-            
-            console.log('requ:',req.data);
             if(req.data?.statusText==='OK'){
-                setMsg('An error has occure');
+                setMsg({type:404,msg:'Cannot upload the file'});
             }
             else{
-                setMsg('The file is send');
-                filelog(req.data?.file_id);
+                setMsg({type:200,msg:'The file is send'});
+                if(req.data?.file_id){
+                    filelog(req.data?.file_id);
+                }
             }
             // get the logs register
             
@@ -83,19 +82,20 @@ export function LogParser()
     }
     // get all the register of the uploaded file
     function filelog(id){
-        console.log('fetching the data....');
         let senddata = async () =>{
             let req = await api.get(`/api/register/${id}`)
             .then(response => { return response })
-            .catch(err => { return (err)} ) ;
-            if(req.data?.statusText!=='OK'){
-                setMsg('Can not error the logs of the file');
+            .catch((error) => {
+                return error.response;
+            });
+            if(req?.statusText!=='OK'){
+                setMsg({type:404,msg:'Can not error the logs of the file'});
             }
             else{
-                setMsg('The file is send');
+                setMsg({type:200,msg:'the log is parsed'});
+                setLogs(req.data);
             }
             if(req.data){
-                setLogs(req.data);
             }
         }
         senddata();
@@ -128,7 +128,7 @@ export function LogParser()
                     forwardRef={uploader}
                     />
                 </form>
-                <div class="table-responsive">
+                <div style={{maxHeight:'400px',overflowX:'scoll'}} class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                         <thead>
                             <tr>
@@ -152,7 +152,9 @@ export function LogParser()
                         <tbody>
                         </tbody>
                     </table>
-                <nav aria-label="Page navigation example">
+                                </div>
+            </div>
+            <nav aria-label="Page navigation example">
                     <ul class="pagination" style={style}>
                         <li 
                         className={page<=1? 'page-item page-link disabled':'page-item page-link ' }
@@ -169,8 +171,7 @@ export function LogParser()
                         >Next</li>
                     </ul>
                 </nav>
-                </div>
-            </div>
+
     </div>
         </>
     )

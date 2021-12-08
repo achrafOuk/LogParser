@@ -34,7 +34,7 @@ export default function useAxios(){
         // add jwt to request method
         req.headers.Authorization = `Bearer ${jwtToken}`
         // check if jwt is expired
-        const isExpired = dayjs.unix(decodeJwt.exp).diff(dayjs()) < 1;
+        const isExpired = dayjs.unix(decodeJwt.exp).diff(dayjs()) <= 1;
         // return the request without refreshing the jwt token
         if(!isExpired) return req;
         // refresh the request JWT token
