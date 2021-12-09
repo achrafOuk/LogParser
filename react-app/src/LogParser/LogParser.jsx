@@ -41,8 +41,6 @@ export function LogParser(props)
         let start = elementBypage*(page-1);
         let end = Math.min(start+elementBypage,logs.length);
         setLog(logs.slice(start,end));
-        console.log(start)
-        console.log(end)
     },[page,logs]);
     /*select text */
     function fileUpload(){
@@ -110,7 +108,7 @@ export function LogParser(props)
                 <h6 class="m-0 font-weight-bold text-primary">Upload file</h6>
             </div>
             <div class="card-body">
-                <Msg style={{margin:"5% auto",width:"95%"}} classe="alert alert-danger" msg={msg}/>
+                <Msg style={{margin:"0% 5% 1% 5%",width:"90%"}} classe="alert alert-danger" msg={msg}/>
                 <Button text="upload file" 
                 style={{marginBottom: "3%",background: "#d6002f",color: "#fff"}} 
                 click={ ()=> fileUpload()

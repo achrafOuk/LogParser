@@ -16,7 +16,7 @@ function App() {
   <div className="App">
     <Router>
       <Switch>
-        <PublicRouter exact path='/' component = {Home} />
+        <PublicRouter history={history} exact path='/' component = {Home} />
         <AuthRouter exact path='/home' component = {LogParser} history={history}/>
         <AuthRouter exact path='/logout' component = {Logout} history={history}/>
         <PublicRouter history={history} exact path='/login' component = {Login} />

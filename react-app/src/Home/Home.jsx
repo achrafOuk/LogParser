@@ -2,8 +2,7 @@ import Navbar from '../Components/navbar/Navbar'
 import Button from '../Components/shared/button';
 import { useState } from 'react';
 import Cart from '../Components/Home/cart';
-function Home(){
-    let [isDirected,setDirect] = useState(false);
+function Home(props){
     return(
         <>
         <div>
@@ -16,7 +15,7 @@ function Home(){
                         <h1>Log Parser</h1>
                         <h2>Log Parser is a website to parse logs more beatufly</h2>
                         <Button 
-                        click ={()=>setDirect(true)}
+                        click ={()=>props.history.push('/register')}
                         text="Start now" 
                         style={{background:'#1d1d1d',background: "#f8f9fa !important",border: "none"}}/>
                     </div>

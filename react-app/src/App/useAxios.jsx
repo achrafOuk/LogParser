@@ -46,6 +46,8 @@ export default function useAxios(){
         let getTokens = JSON.parse(localStorage.getItem('state')).login;
         // set the new refreshed jwt token
         getTokens.jwt =  refrech_token.data.access;
+        //update the jwt token with the new one
+        req.headers.Authorization = `Bearer ${getTokens.jwt }`
         getTokens = {login:getTokens};
         // store the new data inside the localstorage
         localStorage.setItem( 'state', JSON.stringify(getTokens) );
