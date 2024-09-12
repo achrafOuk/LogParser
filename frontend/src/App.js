@@ -1,32 +1,31 @@
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import error404 from './404page/404page';
 import './App.css';
-import './index.css';
-import Error404 from './pages/404/404';
-import Index from './pages/landingpag';
-import Login from './pages/login/login';
-import Register from './pages/register/register';
-import FileUpload from './pages/fileUpload/fileUpload';
-import AuthController1 from './controllers/AuthController';
+import Home from './Home/Home';
+import Login from './Login/login';
+import { LogParser } from './LogParser/LogParser';
+import { Register } from './Register/register';
+import AuthRouter from './Components/shared/AuthRouter';
+import PublicRouter from './Components/shared/PublicRouter';
+import { useHistory } from 'react-router-dom';
+import { Logout } from './Logout/Logout';
+import Footer from './footer/Footer';
 function App() {
-  let auth = new AuthController1();
+  const history = useHistory();
   return (
-        <Router>
-          <Switch>
-            <Route exact path='/' >
-              <Index token={()=>auth.getToken()} ></Index>
-            </Route>
-            <Route exact path='/file' >
-              <FileUpload token={()=>auth.getToken()} ></FileUpload>
-            </Route>
-            <Route exact path='/register'>
-              <Register token={()=>auth.getToken()} ></Register>
-            </Route>
-            <Route exact path='/login'>
-              <Login token={()=>auth.getToken()} setToken={ (j,t) => auth.setToken(j,t)}/>
-              </Route>
-            <Route path='*' component={Error404} ></Route>
-          </Switch>
-        </Router>
-        );
+  <div className="App">
+    <Router>
+      <Switch>
+        <PublicRouter history={history} exact path='/' component = {Home} />
+        <AuthRouter exact path='/home' component = {LogParser} history={history}/>
+        <AuthRouter exact path='/logout' component = {Logout} history={history}/>
+        <PublicRouter history={history} exact path='/login' component = {Login} />
+        <PublicRouter exact path='/register' component = {Register} />
+        <Route path="*" component = {error404} />
+      </Switch>
+      <Footer></Footer>
+    </Router>
+  </div>
+  );
 }
 export default App;
